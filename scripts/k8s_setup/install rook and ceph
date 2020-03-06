@@ -1,0 +1,9 @@
+
+https://ceph.com/planet/hey-whats-up/
+https://rook.io/docs/rook/v1.0/ceph-filesystem.html
+
+
+
+Rook runs ceph.
+Ceph is setup to run a single shared filesystem: see filesystem.yaml
+

@@ -1,0 +1,233 @@
+{
+
+ :pricing {
+           :free "0"
+           :start "20"
+           :basic "110"
+           :pro "330"
+           :start_year "18"
+           :basic_year "100" ;; 17%
+           :pro_year "300"   ;; 20%
+
+           :call-to-action-paid "Get Started"
+           }
+
+ :common        {
+                 :docs "Docs"
+                 :support                         "Support"
+                 :confirm                         "Confirm"
+                 :login                           "Login"
+                 :skip                            "Skip"
+                 :select                          "Select"
+                 :cancel                          "Cancel"
+                 :create                          "Create"
+                 :password                        "Password"
+                 :sign-up                         "Sign up"
+                 :forgot-password                 "Forgot Password"
+                 :user-name-or-email-place-holder "User Name or Email"
+
+                 :users                           "Users"
+                 :secrets                         "Secrets"
+                 :logins                          "Logins"
+                 :dbs                             "DB"
+                 :notes                           "Notes"
+                 :certs                           "Pub Priv Keys"
+                 :envs                            "Envs"
+                 :pricing                         "Pricing"
+
+                 }
+
+ :menu { :cli-tooltip "Click to explore the pkhub command line application"
+         :app-keys-tooltip "Click to open application keys for the pk command line application"
+         :safes-tooltip "Click to view your Safes"}
+
+ :index         {
+                 :security-for-developers         "DevOps Password Manager"
+                 :main-banner-jumbotron-text
+                                                  "
+                                                  Store and share passwords, environments, certificates,<br/>
+                                                  database/server account information securely and with ease.<br/>
+                                                  No more copying credentials over email or slack. <br/>
+                                                  "
+                 :user-name-already-taken             "User name is already taken"
+
+                 :email-already-taken             "Email is already taken"
+                 :create-a-password               "Create a password"
+                 :create-an-account               "Signup"
+
+                 :title                           "Security for developers, Store and share passwords, environments, certificates, database/server account information securely and with ease. More than just a password manager. Manage Kubernetes Secrets and Container Environments securely."
+
+                 :register-terms-of-service-notice
+                                                  "By clicking \"Create an account\", you agree to our
+                                                  <a href=\"https://docs.pkhub.io/termsofservice\" target=\"_blank\">terms of service</a> and
+                                                  <a href=\"https://docs.pkhub.io/privacy\" target=\"_blank\">privacy</a> statements."
+                 :it-teams                        "IT Teams"
+                 :it-teams-desc
+                                                  "Share credentials, certificates, notes and environment variables, between teams easily and securely.
+                                                  Grow teams by adding members with accounts."
+
+
+                 :call-to-action-register-tooltip "Register an account in less than 60 seconds"
+                 :call-to-action-button           "Register to get started"
+
+                 :personal                        "Personal"
+                 :personal-desc
+                                                  "Keep personal and work passwords all in one place separated logically by Safes. Share personal passwords with family and work passwords with team members."
+
+                 :docker                          "Docker"
+                 :docker-desc
+                                                  "Run Docker and Docker Compose instances in different environments for dev, prod, test, where each
+                                                  environment is managed via PKHub and always encrypted."
+
+                 :learn-more                      "Learn more"
+
+                 :contractors                     "Contractors"
+                 :contractors-desc
+                                                  "Manage client secrets, certificates, notes, environment variables all via one interface and in separate
+                                                  securely encrypted Safes.
+                                                  <br/> No more sending credentials or sensitive information over email or slack."
+
+                 :encrypted-env-injection         "Encrypted Environment Injection"
+                 :encrypted-env-injection-desc
+                                                  "Create environments with passwords and accounts that are encrypted, downloaded over HTTP2 with TLS1.3 and injected into
+                                                  the running environment."
+
+                 :kubernetes-desc
+                                                  "Manage secrets in a central place.<br/> PKHub provides prepared docker images that will maintain secrets
+                                                  updated in kubernetes. All information is always encrypted."
+
+                 :our-security                    "Our Security"
+                 :our-security-desc
+                                                  "At PKHub security is the most important to us and we up to date with the latest industry security
+                                                  standards.
+                                                  For communications we use HTTP2 always, with support for TLS1.2 and 1.3, our ciphers are also updated
+                                                  and checked to ensure we always have the most secure ciphers in use.
+                                                  Data like Secrets, Environments, Notes, Logins, are encrypted using AES256-CBC-HMAC-SHA-512."
+
+                 :zero-knowledge-encryption       "Zero Knowledge Encryption"
+                 :zero-knowledge-encryption-desc
+                                                  "Only you have the keys to decrypt your data. This means no one (not even us) can decrypt your data.
+                                                  None of your keys are stored on our systems ever."
+
+                 :password-manager                "Password Manager"
+                 :password-manager-desc
+                                                  "PKHub is so much more than a simple password manager. It is a tool that
+                                                  enables you to manage your encrypted data for applications, development and production environments in a secure way
+                                                  that avoids storing such data on local files. "
+
+                 :free-accounts                   "Free Accounts"
+                 :free-accounts-desc
+                                                  "Free accounts are available to try out and get started, if you require more shares, logins etc upgrade your account."
+
+                 :signup                          "Signup"
+                 :pricing                         "Pricing"
+                 :terms-of-service                "Terms Of Service"
+                 :privacy                         "Privacy"
+                 }
+
+ :setup-wizzard {
+                 :setup-guide         "Setup Guide"
+                 :email-confirm       "Confirm your email"
+                 :email-confirm2      "Confirm Email"
+                 :email-confirm-desc
+                                      "Please check your inbox for a \"Reset Codes\" email, and paste the \"Email Confirm Key\".<br/>
+                                      You can skip this step for the moment, but please take a moment to perform the action, as it<br/>
+                                      ensures we can send you password resets and other account related information."
+                 :email-confirm-place "[Paste in the 'Email Confirm Key' here]"
+                 :select-a-plan       "Select a plan"
+
+
+                 :account-info        "Account Info"
+
+                 :pro-plan            "Pro"
+                 :pro-plan-title      "Professional and business usage"
+                 :pro-plan-radio      "Pro Plan"
+
+                 :basic-plan          "Dev"
+                 :basic-plan-title    "Professional usage"
+                 :basic-plan-radio    "Dev Plan"
+
+                 :free-plan           "Free"
+                 :free-plan-title     "Trying out"
+
+                 :free-plan-radio     "Free Plan"
+
+                 :safes               "Safes"
+                 :safes-tooltip       "Secure logical groups, you can optionally share with other users"
+
+                 :secrets             "Secrets"
+                 :secrets-tooltip     "Encrypted secrets access codes, passwords"
+
+                 :logins              "Logins"
+                 :logins-dbs              "DBs/Logins"
+
+                 :logins-tooltip      "Encrypted secrets access codes, passwords"
+
+                 :envs                "Envs"
+                 :envs-tooltip        "Encrypted command line or program environment variables"
+
+                 :certs               "Certificates"
+                 :certs-tooltip       "Public Private Key Certificates"
+
+                 :notes               "Notes"
+                 :notes-tooltip       "Encrypted notes written in markup"
+
+                 :users               "Shared Users"
+                 :users-tooltip       "Securely share passwords, logins, certificates... via Safes, only shared users can decrypt a Safe's information"
+                 }
+
+ :support       {
+                 :title                    "Support Center"
+                 :doc-title                "Documentation"
+                 :doc-desc
+                                           "Tutorials and examples on how to use PK Hub, <br/>
+                                           to securely create and share
+                                           secreats, logins, certificates"
+                 :doc-call-for-action      "Documentation"
+
+                 :ticket-title             "Support Ticket"
+                 :ticket-desc
+                                           "Open a support ticket for questions, issues/bugs or any security concerns.
+                                           We'll be happy to help out.<br/>
+                                           <p/>
+                                           Expect a reply within 24hrs,<br/> Our normal support hours are Mon-Fri 09:00-18:00 CET."
+                 :ticket-call-for-action   "Create support ticket"
+                 :create-ticket-title      "Create Support Ticket"
+
+                 :description              "Description"
+                 :description-place-holder "Please try to describe the issue as accurate and detailed as possible, include any information that could help"
+
+                 }
+
+ :guides        {
+                 :menu-safes "Safes, you can view, update, create safes"
+                 :menu-support "Support, you can browse documentation or send us a message, we'll help you out"
+                 :menu-profile  "Account and Profile Settings, <br>click here to upgrade your plan, change billing information, manage passwords and 2FA"
+                 :menu-safe-selector "Shows the current selected safe, <br>type to do a quick search and select between different safes"
+                 :menu-group-item-selector "Share the current safe with other users"
+                 :menu-group-item-users "Share the current safe with other users"
+                 :menu-group-item-secrets "Add encrypted secrets"
+                 :menu-group-item-logins "Add secure login details"
+                 :menu-group-item-snippets "Create encrypted notes"
+                 :menu-group-item-certs "Upload private public key certificates"
+                 :menu-group-item-envs "Create encrypted application environments"
+
+                 :menu-click-add-safes "Click the Plus button to create a new Safe.<br> This is where you can store secrets, passwords, logins, certificates, notes and environments."
+                 :pass-groups-start "Click the \"Plus\" button to create a new Safe.<br> This is where you can store secrets, passwords, logins, certificates, notes and environments."
+                 }
+
+ :pass-groups {
+               :create-new-safe "Create a new safe"
+               :create-new-cert "Add a private and or public key to the safe"
+               :create-new-env "Add an encrypted app environment to the safe"
+               :create-new-login "Add a site login to the safe"
+               :create-new-secret "Add a secret/password to the safe"
+               :create-new-note "Add a an encrypted note to the safe"
+               :add-new-user "Add a user to the safe"
+               :click-to-open-safe "Click to open safe"
+               :remove-safe "Click to remove safe"
+
+               :create-new-db "Add DB credentials"
+
+               }
+ }

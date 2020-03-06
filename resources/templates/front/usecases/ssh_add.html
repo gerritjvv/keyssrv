@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+
+{% endblock %}
+
+{% block full-content %}
+
+
+<div class="page-header header-filter header-small" data-parallax="true"
+     style="background-image: url('../img/front/banner3_ext_1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="title">Manage Remote SSH/Rsync/Scp Keys</h1>
+                <h4>
+                    With PKHub you can store your ssh keys encrypted, and make them available to ssh,rsync, and scp
+                    using the ssh-agent via the pk ssh-add command.
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main main-raised">
+    <div class="container">
+
+        <div class="section section-text">
+            <div class="row col-md-8 ml-auto mr-auto  rounded">
+                <iframe src="https://player.vimeo.com/video/339367750"
+                        class="embed-responsive embed-responsive-16by9"
+                        width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h3 class="title">Overview</h3>
+
+                        The most secure way to login to a remote machine and copy files to and from it, is by using SSH
+                        keys (normally RSA).
+
+                   <p> </p>
+                        Managing these keys, between multiple servers and especially between development machines can
+                        become cumbersome. There is
+                        also the security threat of leaving keys lying around on machines.
+
+                   <p> </p>
+
+                    A great way to not have keys as files on local disk is using the unix <a href="https://en.wikipedia.org/wiki/Ssh-agent">ssh-agent</a> program.
+                    Tools like ssh, rsync and scp read from the ssh-agent when trying to access a server, and will try each key until a valid key is found.
+                    This happens quickly and delays trying keys are not observable to a user.
+
+                    <p> </p>
+
+                    The <code>pk ssh-add</code> command is used to download any ssh keys securely and add them to the local running ssh-agent.
+                    After which you can run ssh, rsync or scp normally and the ssh-agent will make the key available to them.
+                    <p></p>
+                    E.g
+                    <p></p>
+                    <div class="blockquote">
+<pre>
+pk ssh-add -s personal -n mykey,myclient-key1 -p
+</pre>
+                    </div>
+
+                    This command will download the ssh keys "mykey" and "myclient-key1", and then add them to the ssh-agent.
+
+                    <p></p>
+
+                    To remove the keys run:
+                    <p></p>
+                    <div class="blockquote">
+<pre>
+ ssh-add -D
+</pre>
+                    </div>
+                    <p></p>
+                    This will remove all keys from the local ssh-agent.
+
+                    <h3 class="title">Formats and Types</h3>
+
+                    Keys must be <a href="https://en.wikipedia.org/wiki/Privacy-Enhanced_Mail">PEM</a> encoded, and
+                    can be RSA (PKCS1, or PKCS8) or ECDSA.
+
+                    Keys can also be password protected themselves. When the <code>pk ssh-add</code> command reads a password protected key,
+                    it will prompt for the key's password, to decrypt it for the ssh-agent.
+
+                    <h3 class="title">Requirements</h3>
+
+                    We assume you have:
+                    <ul>
+                        <li>An account setup with <a href="/pricing">PKHub</a></li>
+                        <li>Installed the <a href="/usecases/cli_setup">PKHub cli</a> and
+                            configured
+                        </li>
+                    </ul>
+                    <p/>
+
+                    <h3 class="title">Use case</h3>
+
+                    We are going to walk you though an example where we setup an AWS server with a private RSA key.
+                    We'll add this key to our pkhub "Pub/Priv Keys", and show you how to run the <code>pk ssh-add</code>
+                    command to add this key to the local ssh-agent. Finally we'll show how to ssh into the AWS server
+                    using the ssh-agent.
+
+
+                    <p></p>
+                    Here we use AWS, but this can be applied to any cloud provider and or any self managed servers, even your local dev laptops.
+
+
+
+                    <h3 class="title">Step 1: Setup</h3>
+
+
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>Create the key in AWS</b>
+                            <p></p>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/sshadd/create_key.png">
+                        </li>
+                        <li class="list-group-item">
+                            <b>Create the aws server, with the ssh key assigned</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/sshadd/create_server.png">
+                        </li>
+                        <li class="list-group-item">
+                            <b>Create the PK Hub Pub/Priv Key entry</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/sshadd/pubprivkey.png">
+                        </li>
+
+                    </ul>
+
+
+                    <h3 class="title">Step 2: Run the pk ssh-add command</h3>
+
+
+                    You can now add the private key using the <a href="/usecases/cli_setup">PK
+                    CLI</a>.
+
+                    <p></p>
+
+                    The <code>pk ssh-add"</code> command can download any private keys from your pkhub safe and add it to the local ssh agent.
+
+                    <div class="blockquote">
+<pre>
+pk shh-add -s myorg -n mydev -p
+</pre>
+                    </div>
+                    <p></p>
+                    <img class="img-raised rounded img-fluid"
+                         src="/img/front/usecases/sshadd/pksshadd.png">
+
+
+                    <h3 class="title">Step 3: SSH into the server</h3>
+
+                    <p></p>
+                    <div class="blockquote">
+                        <pre>
+ssh ec2-user@34.241.2.235
+                        </pre>
+                    </div>
+
+                    <p></p>
+                    <img class="img-raised rounded img-fluid"
+                         src="/img/front/usecases/sshadd/ssh.png">
+
+                    <h3 class="title">Summary</h3>
+
+                    In this use-case we have shown how easy it is to setup and manage ssh keys, and then make them available on your local
+                    dev laptop. This can also be done on remote servers and any machine that runs ssh-agent.
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="wrapper">
+
+    <section id="sec-contact" class="sec-contact pt-5 pb-5">
+
+    </section>
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+
+{% endblock %}
+
+{% block page-scripts %}
+
+
+{% endblock %}

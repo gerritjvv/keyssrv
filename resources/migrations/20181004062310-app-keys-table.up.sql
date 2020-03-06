@@ -1,0 +1,9 @@
+
+CREATE TABLE IF NOT EXISTS app_keys (
+ id SERIAL PRIMARY KEY,
+ user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+ key_id VARCHAR(50) UNIQUE NOT NULL,
+ key_secret_hash bytea NOT NULL,
+ date_created TIMESTAMP NOT NULL DEFAULT now(),
+ date_expire TIMESTAMP NOT NULL
+)

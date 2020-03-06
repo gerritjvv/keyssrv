@@ -1,0 +1,19 @@
+Hola {},
+
+Gracias por contactar con nosotros.
+
+Hemos creado un serie de ejemplos en https://docs.pkhub.io/guides/, haz click en los links que muestran ejemplos de cada paso en la aplicación.
+
+Abajo explico los pasos para empezar
+Primero tienes que registrarte via https://pkhub.io/register, rellenando el formulario
+Despues saldra un "setup guide wizzard", si no quires configurar nada y probar la cuenta gratuito, haz scroll hasta abajo y haz click en el botón "Skip", repite hasta que aparece la pantalla con "Safes" https://docs.pkhub.io/guides/create_new_safe/
+Los "Safes" son grupos donde puedes guardar logins etc, cada grupo tiene asociado usuarios con quien quieres compartir toda la información que guardas en dicho "Safe".
+
+Tambien aprovecho para comentarte que estamos en el procesa de traducir nuestra pagina en castellano, y esto estara "live" la semana que viene.
+ 
+Espero que esto aclara como empezar.
+
+Si tienes mas dudas, estamos aqui para ayudarte :)
+
+Saludos,
+ El pkhub team

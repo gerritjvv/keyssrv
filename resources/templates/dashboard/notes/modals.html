@@ -1,0 +1,97 @@
+
+<!-- Modal Create -->
+<div class="modal fade" id="createsnippetModal" tabindex="-1" role="dialog"
+     aria-labelledby="createsnippetModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  style="max-width: 80% !important;" role="document">
+        <div class="modal-content" style="max-width: 100%; min-width: 50%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createsnippetModaltitle">Create note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/groups/{{group.gid}}?view=snippets">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="create"/>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="title" type="text" maxlength="200" name="title"
+                               placeholder="Title"
+
+                               maxlength="200"
+                               autofocus
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="val">Note</label>
+                        <textarea class="form-control"
+                                  data-iconlibrary="fa"
+                                  data-provide="markdown" id="val" rows="15" maxlength="10000"
+                                  name="val"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<!--
+This modal is special in that the show button requests a page where this modal
+ is shown on load and has the values populated from the serverside
+-->
+<div class="modal fade {{show-action}}" id="updatesnippetModal" tabindex="-1"
+     role="dialog" aria-labelledby="updatesnippetModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered"  style="max-width: 80% !important;"  role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatesnippetModaltitle">Update note</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/groups/{{group.gid}}?view=snippets">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="update"/>
+
+                    <input type="hidden" name="group-snippet-id" value="{{ show-id }}"/>
+
+                    <div class="form-group">
+                        <input class="form-control input-sm" data-provide="markdown" id="new-title" type="text"
+                               maxlength="200" name="new-title" value="{{ show-title }}"
+                               placeholder="Title"
+                               maxlength="200"
+                               autofocus>
+                    </div>
+                    <div class="form-group">
+                            <textarea class="form-control"
+                                      data-iconlibrary="fa"
+                                      data-provide="markdown" id="new-val" rows="15" maxlength="10000"
+                                      name="new-val"
+
+                                      placeholder="Note">{{show-val}}</textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

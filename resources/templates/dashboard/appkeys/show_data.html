@@ -1,0 +1,167 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">vpn_key</i>
+            </div>
+            <h4 class="card-title">API Keys</h4>
+        </div>
+        <div class="card-body">
+
+            {% if show-key-id %}
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+
+
+                <div class="row col-md-12">
+                    <ul class="col-md-12 nav nav-pills nav-pills-info " role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#app-key-nav-home" role="tablist">
+                                Info
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#app-key-nav-bash" role="tablist">
+                                Bash Env Setup
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#app-key-nav-config" role="tablist">
+                                Config Yaml Setup
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="app-key-nav-home">
+                            <table class="table">
+
+                                <thead class="fixed-table-header">
+                                <tr>
+                                    <th>Key ID</th>
+                                    <th>Key Secret</th>
+                                    <th>Valid Until</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="td-label">{{ show-key-id }}</td>
+                                    <td>{{ show-key-secret }}</td>
+                                    <td>{{ show-key-date-expire }}</td>
+                                    <td class="col-md-1">
+                                        <div class="btn-group-sm d-sm-inline-flex">
+                                            <form method="POST" action="/pass/appkeys">
+                                                {% csrf-field %}
+                                                <input type="hidden" name="action" value="remove"/>
+                                                <input type="hidden" name="id" value="{{ app-key.gid }}"/>
+
+                                                <button type="submit" class="btn btn-link" data-toggle="tooltip"
+                                                        data-placement="top" title="Delete App Key"><span
+                                                        class="fa fa-trash-alt small"></span></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="app-key-nav-bash">
+                            <b class="text-lowercase">Put this in your ~/.bashrc or ~/.zshrc file.</b>
+                            <pre>
+                                <code>
+#expire {{ show-key-date-expire }}<br/>
+export PK_KEY_ID={{ show-key-id }}<br/>
+export PK_KEY_SECRET={{ show-key-secret }}<br/>
+                                </code>
+</pre>
+                        </div>
+                        <div class="tab-pane" id="app-key-nav-config">
+                            <b class="text-lowercase">Put this in your ~/.pk.yaml file.</b>
+                            <pre>
+                                <code>
+#expire {{ show-key-date-expire }}
+PK_KEY_ID: {{ show-key-id }}
+PK_KEY_SECRET: {{ show-key-secret }}
+                                </code>
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Show bash export -->
+
+            </div>
+
+            {% endif %}
+
+            <div class="toolbar">
+                <!--        Here you can write extra buttons/actions for the toolbar              -->
+            </div>
+            <div class="material-datatables">
+                <table id="datatables" class="table table-striped table-no-bordered table-hover"
+                       cellspacing="0" width="100%" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Key ID</th>
+                        <th>Key Secret</th>
+                        <th>Created</th>
+                        <th>Expire</th>
+
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Key ID</th>
+                        <th>Key Secret</th>
+                        <th>Created</th>
+                        <th>Expire</th>
+
+                        <th class="text-right">Actions</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+
+
+                    {% for app-key in app-keys %}
+                    <tr>
+                        <td>
+                            {{ app-key.key-id }}
+                        </td>
+                        <td>
+
+                            ########
+                        </td>
+                        <td>{{ app-key.date-created-str }}</td>
+
+                        <td>{{ app-key.date-expire-str }}</td>
+
+                        <td class="text-right">
+                            <div class="btn-group-sm d-sm-inline-flex">
+                                <form method="POST" action="/pass/appkeys">
+                                    {% csrf-field %}
+                                    <input type="hidden" name="action" value="remove"/>
+                                    <input type="hidden" name="id" value="{{ app-key.gid }}"/>
+
+                                    <button type="submit" class="btn btn-link" data-toggle="tooltip"
+                                            data-placement="top">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

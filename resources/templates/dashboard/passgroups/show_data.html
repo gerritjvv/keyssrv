@@ -1,0 +1,96 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">assignment</i>
+            </div>
+            <h4 class="card-title">Safes</h4>
+        </div>
+        <div class="card-body">
+            <div class="toolbar">
+                <!--        Here you can write extra buttons/actions for the toolbar              -->
+            </div>
+            <div class="material-datatables">
+                <table id="datatables" class="table table-striped table-no-bordered table-hover"
+                       cellspacing="0" width="100%" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Owner</th>
+                        <th>Name</th>
+                        <th class="disabled-sorting text-right">Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Owner</th>
+                        <th>Name</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+
+                    {% for group in pass-groups %}
+                    <tr>
+                        <td>
+                            {% if not group.confirmed %}
+                            /{{group.owner-user.user-name}}
+                            {% else %}
+                            <a href="/pass/groups/{{group.gid}}" >
+                                <!--title="{% i18n pass-groups/click-to-open-safe %}"-->
+
+                                /{{group.owner-user.user-name}}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if not group.confirmed %}
+                            {{group.name}}
+                            {% else %}
+                            <a href="/pass/groups/{{group.gid}}" data-toggle="tooltip" >
+                                <!--title="{% i18n pass-groups/click-to-open-safe %}"-->
+
+                                {{group.name}}</a>
+                            {% endif %}
+
+                        </td>
+
+                        <td class="text-right">
+                            <div class="row d-inline-flex">
+
+                                {% if not group.confirmed %}
+                                <form method="POST" action="/pass/groups/{{group.gid}}?view=users">
+                                    {% csrf-field %}
+                                    <input type="hidden" name="group-id" value="{{ group.gid }}"/>
+                                    <input type="hidden" name="confirmed" value="true"/>
+
+                                    <button type="submit" class="btn btn-sm btn-warning">Accept</button>
+                                </form>
+                                {% else %}
+
+                                <a href="/pass/groups/{{group.gid}}" class="btn btn-link btn-just-icon">
+                                    <img width="20px" align="bottom" src="/img/safe-box-open.svg">
+                                </a>
+
+                                {% endif %}
+
+                                <form method="POST" action="/pass/groups">
+                                    {% csrf-field %}
+                                    <input type="hidden" name="group-id" value="{{ group.gid }}"/>
+                                    <button type="submit"
+                                            data-toggle="tooltip" data-placement="top"
+                                            class="btn btn-link btn-just-icon">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

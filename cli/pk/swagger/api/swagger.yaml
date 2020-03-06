@@ -1,0 +1,331 @@
+---
+swagger: "2.0"
+info:
+  description: "Retrieve group secrets, logins, envs ...."
+  version: "0.0.1"
+  title: "PKHub API"
+basePath: "/"
+tags:
+- name: "api"
+  description: "Retrieve group secrets, logins, envs ..."
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /api/v1/safes/secret:
+    get:
+      tags:
+      - "api"
+      summary: "Return each secret specified by a lbl entry, max 100"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "AppKey:AppSecret or Basic: base64(user:pass)"
+        required: true
+        type: "string"
+        x-exportParamName: "Authorization"
+      - name: "safe"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        x-exportParamName: "Safe"
+      - name: "lbls"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Lbls"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Secret"
+  /api/v1/safes/logins:
+    get:
+      tags:
+      - "api"
+      summary: "Return each login that matches a login entry, max 100, logins will\
+        \ search for the login entry, use lbls to search by lbl"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "AppKey:AppSecret or Basic: base64(user:pass)"
+        required: true
+        type: "string"
+        x-exportParamName: "Authorization"
+      - name: "safe"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        x-exportParamName: "Safe"
+      - name: "logins"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Logins"
+      - name: "lbls"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Lbls"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Login"
+  /api/v1/safes/snippets:
+    get:
+      tags:
+      - "api"
+      summary: "Return each snippet that matches a lbl (title) entry, max 100"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "AppKey:AppSecret or Basic: base64(user:pass)"
+        required: true
+        type: "string"
+        x-exportParamName: "Authorization"
+      - name: "safe"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        x-exportParamName: "Safe"
+      - name: "lbls"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Lbls"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Snippet"
+  /api/v1/safes/certs:
+    get:
+      tags:
+      - "api"
+      summary: "Return each certificate pair that matches a lbl (title) entry, max\
+        \ 100"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "AppKey:AppSecret or Basic: base64(user:pass)"
+        required: true
+        type: "string"
+        x-exportParamName: "Authorization"
+      - name: "safe"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        x-exportParamName: "Safe"
+      - name: "lbls"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Lbls"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Certificate"
+  /api/v1/safes/envs:
+    get:
+      tags:
+      - "api"
+      summary: "Return each environment that matches a lbl entry, max 100"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "AppKey:AppSecret or Basic: base64(user:pass)"
+        required: true
+        type: "string"
+        x-exportParamName: "Authorization"
+      - name: "safe"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        x-exportParamName: "Safe"
+      - name: "lbls"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Lbls"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Env"
+  /api/v1/safes/dbs:
+    get:
+      tags:
+      - "api"
+      summary: "Return each db that matches a lbl entry, max 100"
+      parameters:
+      - name: "authorization"
+        in: "header"
+        description: "AppKey:AppSecret or Basic: base64(user:pass)"
+        required: true
+        type: "string"
+        x-exportParamName: "Authorization"
+      - name: "safe"
+        in: "query"
+        description: ""
+        required: true
+        type: "string"
+        x-exportParamName: "Safe"
+      - name: "lbls"
+        in: "query"
+        description: ""
+        required: true
+        type: "array"
+        items:
+          type: "string"
+        collectionFormat: "multi"
+        x-exportParamName: "Lbls"
+      responses:
+        200:
+          description: ""
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/DB"
+definitions:
+  Certificate:
+    type: "object"
+    required:
+    - "lbl"
+    properties:
+      lbl:
+        type: "string"
+      pub-key:
+        type: "string"
+      priv-key:
+        type: "string"
+    example:
+      pub-key: "pub-key"
+      lbl: "lbl"
+      priv-key: "priv-key"
+  DB:
+    type: "object"
+    required:
+    - "lbl"
+    properties:
+      lbl:
+        type: "string"
+      type:
+        type: "string"
+      hosted-on:
+        type: "string"
+      host:
+        type: "string"
+      port:
+        type: "string"
+      database:
+        type: "string"
+      dbuser:
+        type: "string"
+      password:
+        type: "string"
+    example:
+      database: "database"
+      password: "password"
+      port: "port"
+      lbl: "lbl"
+      host: "host"
+      dbuser: "dbuser"
+      type: "type"
+      hosted-on: "hosted-on"
+  Env:
+    type: "object"
+    required:
+    - "lbl"
+    properties:
+      lbl:
+        type: "string"
+      val:
+        type: "string"
+    example:
+      val: "val"
+      lbl: "lbl"
+  Login:
+    type: "object"
+    properties:
+      lbl:
+        type: "string"
+      login:
+        type: "string"
+      user-name:
+        type: "string"
+      user-name2:
+        type: "string"
+      secret:
+        type: "string"
+    example:
+      user-name: "user-name"
+      user-name2: "user-name2"
+      lbl: "lbl"
+      secret: "secret"
+      login: "login"
+  Secret:
+    type: "object"
+    required:
+    - "lbl"
+    properties:
+      lbl:
+        type: "string"
+      val:
+        type: "string"
+    example:
+      val: "val"
+      lbl: "lbl"
+  Snippet:
+    type: "object"
+    required:
+    - "title"
+    properties:
+      title:
+        type: "string"
+      val:
+        type: "string"
+    example:
+      val: "val"
+      title: "title"

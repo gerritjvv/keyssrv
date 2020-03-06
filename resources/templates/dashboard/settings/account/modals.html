@@ -1,0 +1,102 @@
+<!-- Modal -->
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog" aria-labelledby="deleteAccountLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteAccountLabel">Delete Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/settings?view=account">
+                {% csrf-field %}
+                <div class="modal-body alert-danger">
+                    This change cannot be undone or reverted<br/>
+                    and all data will be lost.
+                    <p/>
+                    Please confirm by typing in "delete me"<br/>
+
+                    <div>
+                        <input type="text" name="delete-me-check" placeholder="delete me" required/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+
+
+                    <input type="hidden" name="action" value="delete"/>
+                    <button type="submit" class="btn btn-sm btn-secondary btn-danger" data-toggle="tooltip"
+                            data-placement="top" title="Delete Account">Delete Account
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<!--
+This modal is special in that the show button requests a page where this modal
+ is shown on load and has the values populated from the serverside
+-->
+
+<div class="modal fade" id="updateaccountModal" tabindex="-1" role="dialog" aria-labelledby="updateSecretModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateSecretModaltitle">Update Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/settings?view=account">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="update"/>
+
+
+                    <div class="form-group">
+                        <label for="new-user-name">Username</label>
+                        <input class="form-control input-sm" id="new-user-name" type="text" name="new-user-name"
+                               value="{{user.user-name}}">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="new-email">Email</label>
+                        <input class="form-control input-sm" id="new-email" type="email" name="new-email"
+                               value="{{user.email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="current-password">Current Password</label>
+                        <input class="form-control input-sm" id="current-password" type="password"
+                               name="current-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password</label>
+                        <input class="form-control input-sm" id="new-password" type="password" name="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password-retype">Password (confirm)</label>
+                        <input class="form-control input-sm" id="new-password-retype" type="password"
+                               name="new-password-retype">
+                    </div>
+                    <div class="form-group">
+                        <label for="code">Verification Code</label>
+                        <input class="form-control input-sm" id="code" type="text" name="code">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

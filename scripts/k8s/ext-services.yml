@@ -1,0 +1,8 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "awsecr"
+  namespace: pkhub
+spec:
+  type: ExternalName
+  externalName: "1234567890.dkr.ecr.eu-east-1.amazonaws.com"

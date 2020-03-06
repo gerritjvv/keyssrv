@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+
+{% endblock %}
+
+{% block full-content %}
+
+
+<div class="page-header header-filter header-small" data-parallax="true"
+     style="background-image: url('../img/front/banner3_ext_1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="title">Switch between Multiple AWS Accounts</h1>
+                <h4>Managing multiple AWS accounts or even a single AWS account between multiple computers can be a
+                    pain.
+                    With PKHub you can manage your accounts as different environments and switch between them securely
+                    and with ease.
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main main-raised">
+    <div class="container">
+
+        <div class="section section-text">
+            <div class="row col-md-8 ml-auto mr-auto  rounded">
+                <iframe src="https://player.vimeo.com/video/334318309"
+                        class="embed-responsive embed-responsive-16by9"
+                        width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h3 class="title">Overview</h3>
+
+                    The traditional way to manage AWS keys would be to store them plain text in configuration files.
+                    Each key gets an entry in the AWS config
+                    file. This needs to be repeated and maintained when you move between different computers, and if
+                    you have CI/CD and production environments
+                    setting up and maintaining these keys become tiresome. Add some team members into the mix and
+                    suddenly its a nightmare.
+                    <p/>
+
+
+                    With PKHub you can manage your AWS keys as environments, and switch between them with ease.
+                    Environments are simple text files
+                    that contain variable entries. When you switch to a specific PKHub configured environment, the
+                    application e.g a bash session, is created with the
+                    variables set as OS environment variables.
+                    <p/>
+
+                    The OS environment variables are only readable to the session its invoked with, and disappears
+                    when you session is closed. Allowing you to move between
+                    different computers without leaving files with hardcoded sensitive data around. It also enables
+                    you to quickly update and roll out new keys without
+                    needing to update multiple files.
+                    <p/>
+
+                    <h3 class="title">Requirements</h3>
+
+                    We assume you have:
+                    <ul>
+                        <li>An account setup with <a href="/pricing">PKHub</a></li>
+                        <li>Installed the <a href="/usecases/cli_setup">PKHub cli</a> and
+                            configured
+                        </li>
+                        <li>One or more AWS API Keys</li>
+                    </ul>
+                    <p/>
+
+                    <h3 class="title">Use case</h3>
+
+                    We are going to walk you though an example where we use (fictitious) account AWS API Keys for dev and prod,
+                    and some client AWS API keys. Four in total. You might have less or even more, but this use-case
+                    should be enough
+                    to show you how to manage even more keys with PKHub Environments.<br/>
+                    <p/>
+                    <p/>
+                    We'll use:<br/>
+                    <table class="table">
+                        <tr>
+                            <th>Description</th>
+                            <th>AWS_ACCESS_KEY_ID</th>
+                            <th>AWS_SECRET_ACCESS_KEY</th>
+                        </tr>
+                        <tr>
+                            <td>Account 1: Dev API Keys</td>
+                            <td>AKJAPIHRPYRXVCUGQ5HA</td>
+                            <td>J3JSxEGHPd1MEB1Mv3gQzP9QsJDEgxZZ7BfpLIui</td>
+                        </tr>
+                        <tr>
+                            <td>Account 1: Prod API Keys</td>
+                            <td>ZKQZXIHR9YRAVCTGQ4OB</td>
+                            <td>J3JSxEGHPd1MEB1Mv3gQzP9QsJDEgxZZ7BfpLIuP</td>
+                        </tr>
+
+                        <tr>
+                            <td>Account 2: Client 1 API Keys</td>
+                            <td>QKJA8YRAQY3XVCUGQ5HE</td>
+                            <td>3gJSxEGHKd13EB14v3gQzP9Qs8DEgxZZ7BfpLIuQ</td>
+                        </tr>
+                        <tr>
+                            <td>Account 3: Client 2 API Keys</td>
+                            <td>RIJA8YRAGY3XVC6GQ8DP</td>
+                            <td>1MJSxExEKd13EB14v3gQzxZQs8DEgxZLIBfpLIuQ</td>
+                        </tr>
+
+                    </table>
+                    <p/>
+
+                    <h3 class="title">Step 1: Create the environments</h3>
+
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>Environment: "dev":</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/awsenvs/create_env_dev.png">
+                        </li>
+                        <li class="list-group-item">
+                            <b>Environment: "prod":</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/awsenvs/create_env_prod.png">
+                        </li>
+                        <li class="list-group-item">
+                            <b>Environment: "client1-prod":</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/awsenvs/create_env_client1.png">
+                        </li>
+                        <li class="list-group-item">
+                            <b>Environment: "client2-prod":</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/awsenvs/create_env_client2.png">
+                        </li>
+                    </ul>
+
+                    <b>Summary:</b><br/>
+                    <img class="img-raised rounded img-fluid" src="/img/front/usecases/awsenvs/summary_envs.png">
+
+
+                    <h3 class="title">Step 2: Test out each environment</h3>
+
+
+                    You can now access each environment using the <a href="/usecases/cli_setup">PK
+                    CLI</a>.
+
+                    <p/>
+
+                    The
+                    <a href="https://docs.pkhub.io/command-line/running_in_envs/">"pk sh"</a> command runs any process,
+                    with its OS environment
+                    combined from the "current OS environment" plus the environment variables from the PKHub
+                    environments specified with the "-n" parameter.
+                    <p/>
+                    The processes can be normal applications or an interactive shell like bash.<br/>
+                    <div class="important">Important: for interactive processes like bash always use the "-i" flag</div>
+
+                    <h5><b>Examples:</b></h5>
+                    <div class="blockquote">
+                            <pre>
+pk sh -i -s myorg -n dev -- bash
+
+pk sh -i -s myorg -n prod -- bash
+
+pk sh -i -s myorg -n client1-prod -- bash
+
+pk sh -i -s myorg -n client2-prod -- bash
+                            </pre>
+                    </div>
+                    <p/>
+                    <p/>
+
+
+                    <h3 class="title">Step 3: Setup bash aliases</h3>
+                    Using bash aliases help safe typing those extra keys. <br/>
+                    Copy, edit and paste the ones below into your "~/.bashrc" or "~/.zshrc" files.
+                    <p/>
+                    Now you just have to type the alias name:<br/> e.g "dev-env"
+                    <div class="blockquote">
+                        <pre>
+alias dev-env='pk sh -i -s myorg -n dev -- bash'
+
+alias prod-env='pk sh -i -s myorg -n prod -- bash'
+
+alias client1-env='pk sh -i -s myorg -n client1-prod -- bash'
+
+alias client2-env='pk sh -i -s myorg -n client2-prod -- bash'
+                        </pre>
+                    </div>
+
+                    <h3 class="title">Summary</h3>
+
+                    In this use-case we have shown how easy it is to setup multiple environments for different AWS
+                    accounts,
+                    and how you can switch between them with interactive shell sessions. From these sessions you can run
+                    the aws cli tool
+                    and it will pickup the right account AWS_* access keys.
+                    <br/>
+                    <p/>
+                    <p/><p></p>
+                    The environments created here are not limited to only AWS and can contain any number of environment
+                    variables that are both custom defined
+                    or used to configure other tools. You can use these environments to launch docker-compose,
+                    docker-images and configure your own applications.
+                    <p></p>
+
+                    PKHub Environments are secure and encrypted at rest and during transport. We use
+                            HTTP2 with TLS to transfer each environment from
+                            our server instances directly to the pk cli. HTTP2 mandates direct end to end encryption, which means
+                            that there are no intermediate Load Balancers or Proxies that decrypt
+                            your environments.
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="wrapper">
+
+    <section id="sec-contact" class="sec-contact pt-5 pb-5">
+
+    </section>
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+
+{% endblock %}
+
+{% block page-scripts %}
+
+
+{% endblock %}

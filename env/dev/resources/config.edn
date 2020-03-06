@@ -1,0 +1,45 @@
+{
+ :env           :dev
+ :email         "noreply@gmail.com"
+ :issuer        "http://localhost:3001"
+
+ :database-url  "jdbc:postgresql://postgres:5432/keyssrv?user=test&password=test"
+
+ :keystore-path "env/dev/resources/keystore.p12"
+ :keystore-pwd  "changeme"
+
+ :ssl-port      3001
+ ;;should be the same for all instances
+ ;; salt must be  128bits
+ :salt          "EtSme7FtyW9az/p4"
+
+ :system-key    "EtSme7FtyW9az/p4"
+ :token-store   {
+                 :type     :redis
+                 :hosts    ["redis:6379"]
+                 :password nil                              ;;redis password
+                 :secret   "EtSme7FtyW9az/p4"               ;;used for encryption
+                 }
+
+ :smtp          {:host     "localhost"
+                 :port     2525
+                 :user     "admin@vaulthub.io"
+                 :password nil}
+
+ ;;Deprecating in favour of the token-store
+ :session-store {
+                 :ttl-seconds       3600
+                 :max-login-seconds 86400                   ;;one day in seconds
+                 }
+
+
+ :test          {
+                 :postgres {
+                            :database-url "jdbc:postgresql://postgres:5432/keyssrv?user=test&password=test"
+                            }
+                 :mysql    {
+                            :database-url "jdbc:mysql://mysql:3306/keyssrv?user=test&password=test"
+                            }
+
+                 }
+ }

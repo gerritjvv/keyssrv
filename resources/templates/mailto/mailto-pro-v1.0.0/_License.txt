@@ -1,0 +1,58 @@
+Distributed by https://www.creative-tim.com
+Copyright owner: https://getmailto.com/
+
+Licensing agreement
+
+
+By purchasing a resource (“Item” or “File”) you are being granted a license to use these files for specific uses under the certain conditions.
+
+
+- The Mailto license grants a user an ongoing, non-exclusive, worldwide license to utilize the digital work (“Item”).
+
+- You are licensed to use the Item to create unlimited End Products for yourself or your clients, and the End Product may be sold, licensed, sub-licensed or freely distributed.
+
+- If you are purchasing for multiple individuals in your team, please add the appropriate team size license to your cart ('Personal' for 1 user, 'Agency' for up to 6 users or 'Unlimited' for 7 and more users).
+
+
+An End Product is one of the following:
+
+
+- For an Item that is a template, the End Product is a customized implementation of the Item. For example, the item is iOS templates, and the End Product is the finished app.
+
+- For other types of Items, an End Product is something that incorporates the Item as well as other things, so that it is larger in scope and different in nature than the Item. For example, the Item is a set of icons, and the End Product is a mobile app for sale.
+
+
+You are allowed to:
+
+
+- Create an End Product for a client.
+
+- Sell, license, sub-license or distribute and make any number of copies of the End Product.
+
+- Modify or manipulate the Item. You may combine the Item with other works and make a derivative work from it. The resulting works are subject to the terms of this license.
+
+- Use an Item multiple times, in multiple projects. This is a 'multi-use' license.
+
+
+You are not allowed to:
+
+
+- Sell, rent or sub-license material from the Product (even if you own an extended license)
+
+- Re-distribute the Item as stock, in a tool or template, or with source files. You can’t do this with an Item either on its own or bundled with other items, and even if you modify the Item. You can’t re-distribute or make available the Item as-is or with superficial modifications.
+
+- Permit an end user of the End Product to extract the Item and use it separately from the End Product.
+
+ - The End Product can’t be used in a product offered for sale where the item contributes to the core value of the product being sold. For example, convert a purchased product to a template or theme for sale on your website or the marketplaces like ThemeForest, Creative Market, etc.
+
+
+Other license terms:
+
+
+- You are not required to attribute or link to Mailto in any of projects.
+
+- The free version cannot be used for commercial purposes.
+
+ - All the rights for photographs, illustrations, and texts used in an Item are reserved by their legal owners and are presented in an Item for demonstrating purposes.
+
+- Mailto will not be responsible for any outcome that may occur during the course of usage of our resources

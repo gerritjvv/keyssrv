@@ -1,0 +1,28 @@
+<div class="col-md-12 ">
+    <div class="card h-100">
+        <div class="card-header card-header-icon card-header-info h-100">
+            <div class="card-icon">
+                <i class="fa fa-terminal"></i>
+            </div>
+            <h1 class="card-title justify-content-center  text-secondary">Environments</h1>
+            <h2></h2>
+        </div>
+        <div class="card-body text-center h-100 ">
+
+            <p>
+                <button class="btn btn-danger btn-lg btn-just-icon" data-toggle="modal" data-target="#createenvModal">
+                    <i class="material-icons">add</i> </button>
+            </p>
+
+            <h4 class="text-capitalize "><b>To get started, click on the button to create an Environment entry.</b></h4>
+            <p>
+                Organise your production, development and staging environment variables. Create
+                an environment for each application (or group) then use them via the pk cli.
+                <br/>
+                Environments can also be used with Kubernetes to create secrets for pods and update them in realtime.
+                <p/>
+                <code><pre>pk sh --safe {{group.name}} --lbls "MyEnv" bash</pre></code>
+            </p>
+        </div>
+    </div>
+</div>

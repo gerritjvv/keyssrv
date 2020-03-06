@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to keyssrv</title>
+
+    <!-- styles -->
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">-->
+
+    {% style "/assets/bootstrap/css/bootstrap.min.css" %}
+    {% style "/assets/css/fontawesome-all.min.css" %}
+</head>
+<body>
+<p/>
+<div class="container">
+    <div class="col-lg-1 col-offset-6 centered">
+        <!--{% if errors %}-->
+        <div class="alert alert-danger">
+            <!--{{errors|join}}-->
+        </div>
+        <!--{% endif %}-->
+
+        {% if message %}
+        <div class="alert alert-success">{{message|join}}</div>
+        {% endif %}
+
+    </div>
+
+
+    {% block login_content %}
+    {% endblock %}
+</div>
+
+<!-- scripts -->
+
+{% for url in js-urls %}
+<script src="{{url}}" type="text/javascript"></script>
+{% endfor %}
+
+{% script "/assets/jquery/jquery.min.js" %}
+{% script "/assets/font-awesome/svg-with-js/js/fontawesome.min.js" %}
+{% script "/assets/tether/dist/js/tether.min.js" %}
+{% script "/assets/bootstrap/js/bootstrap.min.js" %}
+{% script "/assets/popper.js/popper.min.js" %}
+
+
+{% block page-scripts %}
+{% endblock %}
+
+{% script "/assets/bootstrap/js/bootstrap.min.js" %}
+
+</body>
+</html>

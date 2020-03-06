@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: keyssrv
+  annotations:
+    nginx.ingress.kubernetes.io/limit-connections: "500"
+    nginx.ingress.kubernetes.io/limit-rps: "200"
+    nginx.ingress.kubernetes.io/load-balance: "ewma"
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "*.pkhub.io"
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: keyssrv
+          servicePort: 3001

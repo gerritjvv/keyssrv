@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block full-content %}
+
+<div class="page-header header-filter page-img" data-parallax="true" style="">
+    <div class="container">
+
+    </div>
+</div>
+
+<div class="main main-raised" style="height: 500px;">
+    <div class="contact-content">
+
+<div class="row col-lg-12 d-flex align-items-stretch">
+    <div class="col-sm-6">
+        <div class="card h-100 border-primary">
+            <div class="card-body text-center">
+                <h5 class="card-title">{% i18n support/doc-title %}</h5>
+                <p class="card-text">
+                    {% i18n support/doc-desc %}
+                </p>
+            </div>
+            <div class="card-body text-center">
+                <a href="https://docs.pkhub.io" target="_blank" class="btn btn-danger">{% i18n support/doc-call-for-action %}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card h-100 border-primary">
+            <div class="card-body text-center">
+                <h5 class="card-title">{% i18n support/ticket-title %}</h5>
+                <p class="card-text">
+                    {% i18n support/ticket-desc %}
+                </p>
+            </div>
+            <div class="card-body text-center">
+                <a href="#" class="btn btn-danger"
+                   data-toggle="modal"
+                   data-target="#createSupportTicketModal" inactive>{% i18n support/ticket-call-for-action %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Modal Create -->
+<div class="modal fade" id="createSupportTicketModal" tabindex="-1" role="dialog"
+     aria-labelledby="createSupportTicketModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="max-width: 100%; min-width: 50%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createSupportTicketModalTitle">{% i18n support/create-ticket-title %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/support">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="create-ticket"/>
+
+                    {% if not user %}
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Contact email" required/>
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <label for="ticket-text">{% i18n support/description %}</label>
+                        <textarea class="form-control"
+                                  id="ticket-text" rows="20" maxlength="100000"
+                                  name="ticket-text"
+                        placeholder="{% i18n support/description-place-holder %}"
+                        autofocus
+                        required></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% i18n common/cancel %}</button>
+                    <button type="submit" class="btn btn-danger">{% i18n common/create %}</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper">
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+{% endblock %}
+
+
+{% block page-scripts %}
+
+{% endblock %}

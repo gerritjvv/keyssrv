@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- navbar -->
+<div class="card border-0">
+
+    <div class="card-header bg-white border-0">
+        <div class="navbar" role="navigation">
+            <ul class="nav nav-tabs">
+                <li class="nav-item {{account-active}}"><a class="nav-link {{account-active}}" href="/settings?view=account">Account</a>
+                </li>
+                <li class="nav-item {{plan-active}} " ><a class="nav-link {{plan-active}}" href="/settings?view=plans">Plan</a>
+                </li>
+                <li class="nav-item {{billing-active}}" ><a class="nav-link {{billing-active}}" href="/settings?view=billing">Billing</a>
+                </li>
+                <li class="nav-item {{billing-active}}" ><a class="nav-link {{security-active}}" href="/settings?view=security">Security</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-body" style="min-height: 500px">
+        {% block settings_content %}
+        {% endblock %}
+
+    </div>
+</div>
+
+
+<footer class="footer navbar w-100">
+    <div class="row col-md-12">
+        <!--<span class="col-md-"></span>-->
+        <span class="col-md-3">
+            <a href="https://docs.pkhub.io/termsofservice/" class="text-secondary">{% i18n index/terms-of-service
+                %}</a><br/>
+            <a href="https://docs.pkhub.io/privacy/" class="text-secondary">{% i18n index/privacy %}</a><br/>
+        </span>
+        <div class="col-md-4"></div>
+
+        <span class="align-self-end align-content-end">
+    <div class="hd-seal"><div class="seal-three" style="position: relative; display: inline-block"></div><div
+            class="sealCode" data-seal-src="https://app.trustlock.co/5750/my-badge/472" style="display: none;"></div><script
+            type="text/javascript" src="https://app.trustlock.co/js/seal-api.js"></script></div>
+
+    </span>
+
+    </div>
+</footer>
+{% endblock %}
+
+
+{% block page-scripts %}
+
+{% endblock %}

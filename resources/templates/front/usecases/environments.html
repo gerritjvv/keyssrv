@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+
+{% endblock %}
+
+{% block full-content %}
+
+
+<div class="page-header header-filter header-small" data-parallax="true"
+     style="background-image: url('../img/front/banner3_ext_1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="title">Manage Credentials as Environment variables and as config files</h1>
+                <h4>
+                    With PKHub you can store your OS environment variables and config files as encrypted environments
+                    and make them available securely to programs anywhere.
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main main-raised">
+    <div class="container">
+
+        <div class="section section-text">
+            <div class="row col-md-8 ml-auto mr-auto  rounded">
+                <iframe src="https://player.vimeo.com/video/339866818"
+                        class="embed-responsive embed-responsive-16by9"
+                        width="640" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h3 class="title">Overview</h3>
+
+                    The <code>pk sh</code> command runs processes with injected OS environment variables. You can also mount config files containing sensitive information
+                    to temporary storage. This works any cli tools, e.g "aws", "bash", "zsh", "kubectl", "docker", "docker-compose" and any process you can run from the commandline.
+
+                    <p></p>
+
+                    <b>e.g Running bash</b>
+                    <p></p>
+                    <div class="blockquote">
+<pre>
+pk sh -s dev -n myenv,devenv -- bash
+</pre>
+                    </div>
+
+                    This command will download the environments "myenv" and "devenv", create a new child OS process (here running bash) and make the key=val pairs in the
+                    environments available as OS environment variables to the process.
+
+                    <p></p>
+
+
+                    <h3 class="title">Requirements</h3>
+
+                    We assume you have:
+                    <ul>
+                        <li>An account setup with <a href="/pricing">PKHub</a></li>
+                        <li>Installed the <a href="/usecases/cli_setup">PKHub cli</a> and
+                            configured
+                        </li>
+                    </ul>
+                    <p/>
+
+                    <h3 class="title">Use case</h3>
+
+                    In this use case we are going to write a small python app that read AWS keys from environment
+                    variables and a database url with user name and password from a file.
+
+                    The app won't actually connect to AWS or a DB and the aim is to show how you can securely pass
+                    credentials either via OS variables or temporary files.
+
+                    Note: Always prefer environment variables over files, file access is process global on the same machine while
+                    while environment variables are limited to the child processes.
+
+
+                    <p></p>
+
+
+                    <h3 class="title">1. Lets write our small app</h3>
+
+                    <div class="blockquote" class="python">
+<pre>
+#!/usr/bin/env python
+
+import os
+import time
+import yaml
+
+
+def read_config():
+    '''
+    this function is deliberately simple for example purposes.
+    '''
+    aws_key = os.environ['AWS_ACCESS_KEY_ID']
+    aws_secret = os.environ['AWS_SECRET_ACCESS_KEY']
+
+    with open(os.environ['CONF'], 'r') as f:
+        db_conf = yaml.safe_load(f)
+
+    return {'aws_key': aws_key,
+            'aws_secret': aws_secret,
+            'db': db_conf['db']}
+
+
+if __name__ == '__main__':
+    conf = read_config()
+
+    db = conf['db']
+
+    print("This is a demo script, we print secret info to stdout for example purposes")
+    print("Downloading from db: '{}' user '{}' pwd '{}'".format(db['url'], db['user'], db['password']))
+    time.sleep(1)
+
+    print("Uploading to aws s3 with keys: '{}'/'{}'".format(conf['aws_key'], conf['aws_secret']))
+
+</pre>
+                        </code>
+                    </div>
+
+
+
+                    <h3 class="title">Step 2: Create the pk environments</h3>
+
+
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <b>Create an environment named dev-env</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/envs/awsenv.png">
+                        </li>
+                        <li class="list-group-item">
+                            <b>Create an environment named db-conf</b><br/>
+                            <img class="img-raised rounded img-fluid"
+                                 src="/img/front/usecases/envs/dbconf.png">
+                        </li>
+
+                    </ul>
+
+                    <h3 class="title">Step 3: Run our app with "pk sh"</h3>
+
+
+                    <div class="blockquote">
+<pre>
+pk sh  -s myorg -n dev-env -v db-dev-conf:CONF python dbapp.py
+</pre>
+                    </div>
+
+                    The pk sh command takes:<br/>
+                    <li class="list-group">
+                        <ul class="list-group-item">"-s" [safe]  => The pk safe you have created the environment in</ul>
+                        <ul class="list-group-item">"-n" [env]  => The pk environment that contains the VAR=val pairs</ul>
+                        <ul class="list-group-item">"-v" [volume]:[ENV_VAR]  => The pk environment that you want to mount as a file, and make path available to the specified environment variable.</ul>
+                    </li>
+
+                    In the example above example the environment variables "AWS_ACCESS_KEY_ID", and "AWS_SECRET_ACCESS_KEY" are specified in the "dev-env" environment
+                    and made available as OS environment variables to the python process.
+                    <p></p>
+                    The yaml configuration in the "db-dev-conf" environment is mounted as a temporary file ( written to temporary in-memory storage
+                    and with a random file name), and its file name is set to the environment variable CONF (we can specify any variable name here).
+                    The python scripts reads the yaml configuration from the file specified in CONF.
+
+                    <p></p>
+                    <img class="img-raised rounded img-fluid"
+                         src="/img/front/usecases/envs/sh_output.png">
+
+                    <h3 class="title">Summary</h3>
+
+                    In this use case we have shown how to download encrypted secret information as environment variables or mount configuration
+                    that contain secret information as files.
+                    <p></p>
+                    As an example we have used a simple python script, but any software that runs from a terminal can be used here.
+                    <p></p>
+                    <b>TIP:</b><br/>
+
+                    If you are going to run the command multiple times or multiple different commands it works best to
+                    enter a bash/zsh shell from the <code>pk sh</code> command and then run the commands. Please remember to use the <code>"-i"</code> flag
+                    for interactive commands.<br/>
+                    For example:<br/>
+                    <div class="blockquote">
+<pre>
+pk sh  -s myorg -n dev-env -v db-dev-conf:CONF -i -- bash
+python dbapp.py
+</pre>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="wrapper">
+
+    <section id="sec-contact" class="sec-contact pt-5 pb-5">
+
+    </section>
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+
+{% endblock %}
+
+{% block page-scripts %}
+
+
+{% endblock %}

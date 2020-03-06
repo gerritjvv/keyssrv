@@ -1,0 +1,84 @@
+# This is a sample build configuration for Clojure.
+# Check our guides at https://confluence.atlassian.com/x/5Q4SMw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+#
+# For redis use https://github.com/kstyrc/embedded-redis,
+# its better suited for ci testing and doesn't require another 1024mb of reserved memory
+image:
+  name: 351415477200.dkr.ecr.eu-west-1.amazonaws.com/keyssrv-dev:latest
+  username: $AWS_ACCESS_KEY_ID
+  password: $AWS_SECRET_ACCESS_KEY
+  email: admin@pkhub.io
+
+pipelines:
+  custom:
+      dev_images_docker_publish:
+         - step:
+             caches:
+               - maven
+             script:
+               - ./build.sh deploybase
+             services:
+               - docker
+      prod-deploy:
+      - step:
+          script: # Modify the commands below to build your repository.
+          - ENV=prod NAMESPACE="pkhub" scripts/build.sh createsecrets
+          - ENV=prod NAMESPACE="pkhub" scripts/build.sh applyk8s
+          - ENV=prod NAMESPACE="pkhub" scripts/build.sh deployk8s
+
+          #- ENV=prod scripts/build.sh updatek8sdeployimg $AWS_REGISTRY_URL pkhub keyssrv
+
+          services:
+          - docker
+      pk_cli_release:
+      - step:
+          caches:
+          - maven
+          script:
+          - ./build.sh clirelease
+          - ./build.sh clidockerrelease
+          services:
+            - docker
+
+  default:
+    - step:
+        name: test & build
+        caches:
+          - maven
+        script: # start mysql with custom config and wait for port 3306
+          - docker run -d  -v `pwd`/env/dev/resources/mysql:/etc/mysql/conf.d -e MYSQL_ROOT_PASSWORD=test -e MYSQL_DATABASE=test -e MYSQL_USER=test -e MYSQL_PASSWORD=test -p 3306:3306 mysql --local-infile
+          - ./scripts/wait_for_port.py 3306
+#          - BITBUCKET=true ./build.sh test
+          - ./build.sh build
+          - ./build.sh dockerpushprod
+        services:
+          - postgres
+          - docker
+          - redis
+#    - step:
+#        name: docker push prod
+#        caches:
+#          - maven
+#        deployment: production
+#        script:
+#          - ./build.sh build
+#          - ./build.sh dockerpushprod
+#        services:
+#          - docker
+
+definitions:
+  services:
+     redis:
+        image: redis
+        memory: 512
+     postgres:
+        image: postgres
+        memory: 512
+        environment:
+           POSTGRES_DB: 'test'
+           POSTGRES_USER: 'test'
+           POSTGRES_PASSWORD: 'test'
+

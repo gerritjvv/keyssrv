@@ -1,0 +1,156 @@
+
+<!-- Modal Create -->
+<div class="modal fade" id="createcertModal" tabindex="-1" role="dialog"
+     aria-labelledby="createcertModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="max-width: 100%; min-width: 50%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createcertModaltitle">Create cert</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/groups/{{group.gid}}?view=certs">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="create"/>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="lbl" type="text"
+                               placeholder="Label"
+                               data-toggle="tooltip" data-placement="top" title="(Alphanumeric and '_' '-' '/'])"
+
+                               pattern="[A-Za-z_\-\/0-9]*"
+
+                               maxlength="100" name="lbl"
+                               autofocus
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="assigned-user" name="assigned-user" type="text"
+                               placeholder="Assigned user (optional)"
+                               data-toggle="tooltip" data-placement="top"
+                               title="If specified makes this key readable only to the assigned user, admins can only delete"
+                               maxlength="100"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="pub-key">Public Cert (Pem)</label>
+                        <textarea class="form-control"
+                                  id="pub-key" rows="5" maxlength="100000"
+                                  name="pub-key"></textarea>
+                    </div>
+                    <table>
+                        <tr><td><input class="btn btn-secondary btn-sm" id="pub-key-file" type="file"
+                                       data-file-sync-reader="pub-key-file"
+                                       data-file-sync-area="pub-key"/></td></tr>
+                    </table>
+
+                    <div class="form-group">
+                        <label for="priv-key">Private Key (Pem)</label>
+                        <textarea class="form-control"
+                                  id="priv-key" rows="5" maxlength="100000"
+                                  name="priv-key"></textarea>
+                    </div>
+                    <table>
+                        <tr><td><input class="btn btn-secondary btn-sm" id="priv-key-file" type="file"
+                                       data-file-sync-reader="priv-key-file"
+                                       data-file-sync-area="priv-key"/></td></tr>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<!--
+This modal is special in that the show button requests a page where this modal
+ is shown on load and has the values populated from the serverside
+-->
+<div class="modal fade {{show-action}}" id="updatecertModal" tabindex="-1"
+     role="dialog" aria-labelledby="updatecertModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updatecertModaltitle">Update login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/groups/{{group.gid}}?view=certs">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="update"/>
+
+                    <input type="hidden" name="group-cert-id" value="{{ show-id }}"/>
+
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="new-lbl" type="text" maxlength="100" name="new-lbl"
+                               value="{{show-lbl}}"
+                               placeholder="Label"
+                               data-toggle="tooltip" data-placement="top" title="(Alphanumeric and '_' '-' '/'])"
+
+                               pattern="[A-Za-z_\-\/0-9]*"
+
+                               maxlength="100" name="lbl"
+                               autofocus
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-pub-key">Public Cert (Pem)</label>
+                        <textarea class="form-control"
+                                  id="new-pub-key" rows="5" maxlength="100000"
+                                  name="new-pub-key">{{show-pub-key}}</textarea>
+                    </div>
+                    <table>
+                        <tr>
+                            <td><input class="btn btn-secondary btn-sm" id="new-pub-key-file" type="file"
+                                       data-file-sync-reader="new-pub-key-file"
+                                       data-file-sync-area="new-pub-key"/></td>
+                            <td><button type="button" class="btn btn-sm"
+                                        data-save-text-file="{{show-lbl}}.cert"
+                                        data-save-text-element="new-pub-key">Download</button></td>
+                        </tr>
+                    </table>
+
+                    <div class="form-group">
+                        <label for="new-priv-key">Private Key (Pem)</label>
+                        <textarea class="form-control"
+                                  id="new-priv-key" rows="5" maxlength="100000"
+                                  name="new-priv-key">{{show-priv-key}}</textarea>
+                    </div>
+                    <table>
+                        <tr>
+                            <td><input class="btn btn-secondary btn-sm" id="new-priv-key-file" type="file"
+                                       data-file-sync-reader="new-priv-key-file"
+                                       data-file-sync-area="new-priv-key"
+                            /></td>
+                            <td><button type="button" class="btn btn-sm"
+                                        data-save-text-file="{{show-lbl}}.key"
+                                        data-save-text-element="new-priv-key">Download</button></td>
+                        </tr>
+                    </table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

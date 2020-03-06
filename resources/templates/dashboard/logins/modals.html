@@ -1,0 +1,143 @@
+
+<!-- Modal Create -->
+<div class="modal fade" id="createloginModal" tabindex="-1" role="dialog" aria-labelledby="createloginModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createloginModaltitle">Create login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/groups/{{group.gid}}?view=logins">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="create"/>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="lbl" type="text" maxlength="100" name="lbl"
+                               placeholder="Label"
+
+                               data-toggle="tooltip" data-placement="top"
+                               title="(Alphanumeric and '_' '-' '/' '?' '&' ':' '.'])"
+
+                               pattern="[A-Za-z_\-\/0-9\:\?\&\%\.]*"
+
+                               maxlength="100"
+                               autofocus
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="login" type="text" maxlength="200" name="login"
+                               placeholder="Login URL/Name"
+
+                               maxlength="200"
+                               autofocus
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="user-name" type="text" maxlength="100"
+                               name="user-name"
+                               placeholder="User Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="user-name2" type="text" maxlength="100"
+                               name="user-name2"
+                               placeholder="Secondary User Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control input-sm" id="secret" type="text" maxlength="500" name="secret"
+                               placeholder="Password">
+                    </div>
+                    <button type="button" class="btn btn-link d-sm-inline" data-toggle="tooltip"
+                            data-placement="top"
+                            title="Click to generate a password"
+                            data-pass-gen-btn="secret">
+                        Generate Password
+                    </button>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<div class="modal fade" id="updateloginModal" tabindex="-1" role="dialog" aria-labelledby="updateloginModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateloginModaltitle">Update login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/groups/{{group.gid}}?view=logins">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="update"/>
+
+                    <input type="hidden" name="group-login-id" value="{{ login.gid }}"/>
+
+                    <div class="form-group">
+                        <label>Label</label>
+                        <input class="form-control input-sm" id="new-lbl" type="text" maxlength="200"
+                               name="new-lbl"
+                               placeholder="Label/Name"
+                               data-toggle="tooltip" data-placement="top" title="(Alphanumeric and '_' '-' '/'])"
+
+                               pattern="[A-Za-z_\-\/0-9\:\?\&\%\.]*"
+
+                               autofocus
+                               required>
+                        <label>Login</label>
+                        <input class="form-control input-sm" id="new-login" type="text" maxlength="200"
+                               name="new-login"
+                               placeholder="Login URL/Name"
+                               autofocus
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input class="form-control input-sm" id="new-user-name" type="text" maxlength="100"
+                               name="new-user-name"
+                               placeholder="User Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-name2">2nd User Name</label>
+                        <input class="form-control input-sm" id="new-user-name2" type="text" maxlength="100"
+                               name="new-user-name2"
+                               placeholder="Secondary User Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="secret">Password</label>
+                        <input class="form-control input-sm" id="new-secret" type="text" maxlength="500"
+                               name="new-secret" value="****">
+                    </div>
+                    <button type="button" class="btn btn-link d-sm-inline" data-toggle="tooltip"
+                            data-placement="top"
+                            title="Click to generate a password"
+                            data-pass-gen-btn="new-secret">
+                        Generate Password
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Update</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

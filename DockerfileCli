@@ -1,0 +1,22 @@
+FROM alpine:3.8
+
+ENV KUBE_LATEST_VERSION="v1.13.1"
+
+RUN apk add --no-cache curl && \
+ curl https://raw.githubusercontent.com/pkhubio/pkcli/master/install.sh | sh && \
+ apk add --update ca-certificates && \
+ apk add --update -t deps curl && \
+ curl -L https://storage.googleapis.com/kubernetes-release/release/${KUBE_LATEST_VERSION}/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl && \
+ chmod +x /usr/local/bin/kubectl && \
+ apk add --update py-pip && \
+ pip install awscli && \
+ curl -sL https://github.com/digitalocean/doctl/releases/download/v1.15.0/doctl-1.15.0-linux-amd64.tar.gz | tar -xzv && \
+ chmod +x ./doctl && \
+ mv ./doctl /usr/local/bin/doctl && \
+ apk del --purge deps && \
+ rm /var/cache/apk/* && \
+ touch /root/.pk.yaml
+
+WORKDIR /root
+
+CMD ["pk"]

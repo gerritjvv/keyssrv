@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+
+<link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet"/>
+
+{% endblock %}
+
+{% block full-content %}
+
+
+<div class="image-container" style="background-image: url('img/front/login-people6.jpg')">
+
+    <!--   Big container   -->
+    <div class="container">
+
+        <div class="col-md-12">
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+                <div id="paid-plan-wizz" class="card wizard-card" data-color="red" id="wizard">
+                    <form action="/home" method="post" autocomplete="off" id="card-update-form">
+
+                        {% csrf-field %}
+
+                        <input type="hidden" name="step-i" value="{{step-i}}"/>
+
+                        <div class="wizard-header">
+                            <h3 class="wizard-title">
+                                Please setup your account
+                            </h3>
+                            <h5>This sets your account type: <span id="account-selected-lbl"></span></h5>
+                            {% include "front/alerts.html" %}
+
+                        </div>
+                        <div class="wizard-navigation">
+                            <ul>
+                                <li id="verify-email-tab"><a href="#confirm-email" data-toggle="tab" visible="false"> Please Verify
+                                    your Email</a></li>
+                            </ul>
+                        </div>
+
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane p-4" id="confirm-email">
+                                <h5 align="center">
+                                    Check your inbox for an email from us with the "email confirm key".
+                                </h5>
+                                <div class="row justify-content-center">
+                                    <div class="form-group">
+                                        <input class="form-control" size="60" id="confirm-code"
+
+                                               type="text" name="confirm-code" maxlength="500"
+                                               placeholder="{% i18n setup-wizzard/email-confirm-place %}"
+                                               autofocus>
+                                    </div>
+                                    <!--<div class="form-group"> Deavtivated -->
+                                        <!--<input type="button" class="btn btn-secondary btn-sm" id="resendConfirmEmail"-->
+                                               <!--name="resendConfirmEmail" value="Resend Email">-->
+                                    <!--</div>-->
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="wizard-footer">
+                            <div class="pull-right">
+                                <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' id="next"
+                                       name='next' value='Next'/>
+                                <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' id="finish"
+                                       name='finish'
+                                       value='Finish'/>
+                            </div>
+                            <div class="pull-left">
+                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' id="previous"
+                                       name='previous' value='Previous'/>
+
+                                <div class="footer-checkbox">
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </form>
+                </div>
+
+            </div> <!-- wizard container -->
+        </div>
+
+    </div> <!--  big container -->
+
+
+</div>
+
+<div class="wrapper">
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+
+{% include "front/modals.html" %}
+
+{% endblock %}
+
+{% block page-scripts %}
+
+<script src="assets/js/wizzard/jquery.bootstrap.js"></script>
+
+<script src="assets/js/wizzard/material-bootstrap-wizard.js"></script>
+
+{% endblock %}
+

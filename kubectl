@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+#dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
+
+
+/usr/local/bin/kubectl --kubeconfig=$HOME/.kube/config-digital-ocean $@

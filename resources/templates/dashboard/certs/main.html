@@ -1,0 +1,52 @@
+{% extends "dashboard/base.html" %}
+
+{% block full-content %}
+<div class="content">
+
+
+    <div class="content">
+
+        {% include "front/alerts.html" %}
+
+        <div class="container-fluid">
+            {% if certs|not-empty %}
+            <div class="row  justify-content-center">
+                <p>
+                    <button class="btn btn-info btn-lg btn-just-icon" data-toggle="modal"
+                            data-target="#createcertModal">
+                        <i class="material-icons">add</i></button>
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="row ">
+
+                {% if certs|not-empty %}
+
+                {% include "dashboard/certs/show_data.html" %}
+
+                {% else %}
+
+                {% include "dashboard/certs/show_welcome.html" %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    {% if show-update-modal %}
+    <div id="showDashboardModal" data-target="updatecertModal"></div>
+    {% endif %}
+
+</div>
+
+{% include "dashboard/certs/modals.html" %}
+
+{% endblock %}
+
+
+{% block page-scripts %}
+
+
+{% endblock %}

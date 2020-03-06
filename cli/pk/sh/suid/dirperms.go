@@ -1,0 +1,64 @@
+/*
+ Create temporary files in MacOSX
+*/
+package suid
+
+import (
+	"fmt"
+	"os/exec"
+	"os/user"
+	"pk/log"
+)
+
+const (
+	acluser = "user:%s:allow delete,readattr,writeattr,readextattr,writeextattr,readsecurity,writesecurity,chown,list,search,add_file,add_subdirectory,delete_child,read,write,execute,append,file_inherit,directory_inherit\neveryone:deny delete,readattr,writeattr,readextattr,writeextattr,readsecurity,writesecurity,chown,list,search,add_file,add_subdirectory,delete_child,read,write,execute,append,file_inherit,directory_inherit\n"
+	perms   = "go-rwx"
+)
+
+func chprivDir(path string, uid string) (err error) {
+	// Ensure that the permissions are correct.
+	// -P: don't follow symlinks
+	// (Go's os.Chmod always follows symlinks)
+	out, err := exec.Command("/bin/chmod", "-P", "-R", perms, path).CombinedOutput()
+	if err != nil {
+		log.Errorf("/bin/chmod failed:\n%s", string(out))
+		return err
+	}
+	log.Debugf("%s", out)
+
+	// chflags
+	// -P: don't follow symlinks
+	// hidden: hide from GUI (TODO: is this desirable)
+	out, err = exec.Command("/usr/bin/chflags", "-P", "-R", "-v", "-v", "hidden", path).CombinedOutput()
+	if err != nil {
+		log.Errorf("/usr/bin/chflags failed:\n%s", string(out))
+		return err
+	}
+	log.Debugf("chflags %s", string(out))
+
+	u, err := user.LookupId(uid)
+	if err != nil {
+		log.Errorf("Couldn't set ACL because username lookup failed")
+		return err
+	}
+
+	// Set the extended attributes; we pipe the ACLs into chmod -E
+	acl := fmt.Sprintf(acluser, u.Username)
+	cmd := exec.Command("/bin/chmod", "-P", "-R", "-E", path)
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		log.Errorf("error opening pipe")
+		return err
+	}
+	fmt.Fprintf(stdin, acl)
+	stdin.Close()
+	log.Debugf("setting acl to: %s", acl)
+	out, err = cmd.CombinedOutput()
+
+	if err != nil {
+		log.Errorf("error setting acl: %s", out)
+		return err
+	}
+	log.Debugf("setting acl: %s", out)
+	return nil
+}

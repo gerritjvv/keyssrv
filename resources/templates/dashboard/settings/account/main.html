@@ -1,0 +1,39 @@
+{% extends "dashboard/base.html" %}
+
+{% block full-content %}
+<div class="content">
+
+
+    <div class="content">
+
+        {% include "front/alerts.html" %}
+
+        <div class="row">
+            {% include "dashboard/settings/tabmenu.html" %}
+        </div>
+        <div class="row">
+
+            {% include "dashboard/settings/account/show_data.html" %}
+
+        </div>
+    </div>
+
+</div>
+
+{% include "dashboard/settings/account/modals.html" %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block page-scripts %}
+
+
+{% if show-update-modal %}
+<div id="showDashboardModal" data-target="updateaccountModal"></div>
+{% endif %}
+
+{% endblock %}

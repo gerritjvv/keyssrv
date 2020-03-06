@@ -1,0 +1,55 @@
+{% extends "dashboard/base.html" %}
+
+{% block full-content %}
+<div class="content">
+
+
+    <div class="content">
+
+        {% include "front/alerts.html" %}
+
+        <div class="container-fluid">
+            {% if snippets|not-empty %}
+            <div class="row  justify-content-center">
+                <p>
+                    <button class="btn btn-info btn-lg btn-just-icon" data-toggle="modal" data-target="#createsnippetModal">
+                        <i class="material-icons">add</i> </button>
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="row ">
+
+                {% if snippets|not-empty %}
+
+                {% include "dashboard/notes/show_data.html" %}
+
+                {% else %}
+
+                {% include "dashboard/notes/show_welcome.html" %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% include "dashboard/notes/modals.html" %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block page-scripts %}
+
+{% if show-update-modal %}
+<div id="showDashboardModal" data-target="updatesnippetModal"></div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{
+ :env           "test"
+ :email         "noreply@gmail.com"
+ :issuer        "http://localhost:3001"
+
+ :database-url  "jdbc:postgresql://postgres:5432/keyssrv?user=test&password=test"
+
+ :keystore-path "env/test/resources/keystore.p12"
+ :keystore-pwd  "changeme"
+
+ :ssl-port      3001
+ ;;should be the same for all instances
+ ;; salt must be at least 128bits
+ :salt          "EtSme7FtyW9az/p4"
+
+ :smtp          {
+                 :port     465
+                 :user     "test"
+                 :password "test"
+                 :ssl      true
+                 :host     "test"
+                 }
+
+
+ :test          {
+                 :postgres {
+                            :database-url "jdbc:postgresql://postgres:5432/keyssrv?user=test&password=test"
+                            }
+                 :mysql    {
+                            :database-url "jdbc:mysql://mysql:3306/keyssrv?user=test&password=test"
+                            }
+
+                 }
+ }

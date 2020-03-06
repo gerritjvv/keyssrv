@@ -1,0 +1,520 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+<meta name="description"
+      content="{% i18n index/title %}">
+
+
+{% endblock %}
+
+{% block full-content %}
+
+<div class="page-header header-filter" data-parallax="false"
+     style="background-image: url('../img/front/banner3_ext_1.jpg')">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="title">The DevSecOps Secrets Manager</h1>
+                <h3> Securely access your servers and databases from the command line.</h3>
+
+                <h4>No more SSH keys stored as local files on dev laptops. Access your servers securely and from anywhere.</h4>
+                <br>
+            </div>
+        </div>
+        <div class="row align-content-start">
+
+        </div>
+    </div>
+</div>
+<div class="container p-1"></div>
+<div class="">
+    <div class="container">
+
+        <div class="section text-center">
+
+            <div class="align-content-center">
+                <h2 class="title">Painless Credential Management</h2>
+
+            </div>
+            <div class="col-md-8 ml-auto mr-auto">
+                <h3 class="description">
+                    Access your servers, databases and api endpoints from your software and terminal
+                    securely and without having to worry about
+                    how to distribute, update and save your credentials.
+                </h3>
+            </div>
+            <div class="row card-deck">
+                <div class="card">
+                    <div class="card-text">
+                        <h4>Securely access your ssh keys</h4>
+                    </div>
+                    <div class="card-body">
+                        <iframe src="https://player.vimeo.com/video/339367750"
+                                class="embed-responsive embed-responsive-16by9" frameborder="0"
+                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                    </div>
+
+                    <a href="https://docs.pkhub.io/usecases/ssh_add/" target="_blank" class="card-link">Read more...</a>
+                </div>
+                <div class="card">
+                    <div class="card-text">
+                        <h4>Use environment variables to run scripts and switch accounts</h4>
+                    </div>
+                    <div class="card-body">
+                        <iframe src="https://player.vimeo.com/video/334318309" frameborder="0"
+                                class="embed-responsive embed-responsive-16by9"
+                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+                        <a href="https://docs.pkhub.io/usecases/aws_accounts/" target="_blank" class="card-link">Read
+                            more...</a>
+
+
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-text">
+                        <h4>Inject environment variables into apps</h4>
+                    </div>
+                    <div class="card-body">
+                        <iframe src="https://player.vimeo.com/video/339866818"
+                                class="embed-responsive embed-responsive-16by9" frameborder="0"
+                                allow="autoplay; fullscreen" allowfullscreen></iframe>
+                        <a href="https://docs.pkhub.io/usecases/environments/" target="_blank" class="card-link">Read
+                            more...</a>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div align="center" class="m-5">
+                <a href="/register" id="btnSignupMid" class="btn btn-info btn-raised btn-lg">
+                    <i class="fa"></i> Register to get started
+                </a>
+            </div>
+
+            <hr>
+
+            <!--<div class="section">-->
+
+                <!--&lt;!&ndash;<div class="align-content-center">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<h2>Credentials in your terminal</h2>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="icon">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<img src="img/front/banner4.2.jpeg" width="200" height="200" class="img-fluid"/>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;<div class="col-md-8 ml-auto mr-auto">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<h3 class="title">Easy to use command line tool</h3>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<h5 class="description text-left">&ndash;&gt;-->
+                        <!--&lt;!&ndash;With our pk command line tool you have your credentials, logins, secrets&ndash;&gt;-->
+                        <!--&lt;!&ndash;accessible from any terminal. Our secure environment injection makes the credentials you&ndash;&gt;-->
+                        <!--&lt;!&ndash;choose, available to your shell session or any software you choose to run&ndash;&gt;-->
+                    <!--&lt;!&ndash;</h5>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div class="description text-left">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<code>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                                <!--&lt;!&ndash;# download some secrets<br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;pk -s tool get secret -n etl-db -n etl-pass&ndash;&gt;-->
+                            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                                <!--&lt;!&ndash;# filter with jq<br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;pk -s tool get secret  -n etl-db &#45;&#45;jq ".[0].val"&ndash;&gt;-->
+                            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                                <!--&lt;!&ndash;# access your db<br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;pk -s data db -n analytics&ndash;&gt;-->
+                            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<p>&ndash;&gt;-->
+                                <!--&lt;!&ndash;# access your ssh key <br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;pk -s prod ssh-add -n ec2-default <br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;ssh ec2-user@worker-node1 <br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;ssh-add -D&ndash;&gt;-->
+                            <!--&lt;!&ndash;</p>&ndash;&gt;-->
+
+                        <!--&lt;!&ndash;</code>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+
+
+                <!--<div class="flex-row mr-auto align-content-center">-->
+
+                    <!--<h4 class="info-title"></h4>-->
+                    <!--<p>.</p>-->
+
+                <!--</div>-->
+
+
+            <!--</div>-->
+            <div class="features w-100">
+                <div class="row w-100">
+
+                    <div class="col-md-2"></div>
+
+                    <div class="col-md-8">
+                        <div class="icon">
+                            <img src="img/front/banner6_v2.jpg" class="img-fluid" width="400px"/>
+                        </div>
+                        <hr>
+                        <p/>
+                        <h2 class="info-title">Secure Team Sharing</h2>
+                        <h3>Share and distribute credentials between teams securly. Manage access to each resource
+                            with our fine grained Safe sharing access.
+                            This makes on boarding and off boarding users quick and painless.
+                        </h3>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <hr>
+            <div class="flex-row mt-4">
+                <div class="row">
+                    <h3 class="title ml-auto mr-auto">Our clients and user reviews:</h3>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-1">
+
+
+                    </div>
+                    <div class="col-md-8">
+                        <div class="icon">
+                        </div>
+
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="section text-center">
+            <div class="align-content-center">
+                <h2>Save costs while being more secure with our SaaS solution</h2>
+            </div>
+            <div class="col-md-8 ml-auto mr-auto">
+                <h3 class="title">Opensource is fine but you still have to pay hosting and engineering time to manage
+                    it</h3>
+                <h5 class="description text-left">
+                    To host your own solution can cost more than using a pre-built and managed SaaS solution.
+                    A typical production DIY solution would need:
+                    <ul>
+                        <li>a single ec2 t2.xlarge</li>
+                        <li>a master slave RDS 2 x db.t2.large instances</li>
+                    </ul>
+                    The cost of which on AWS exceeds $500 p/m.
+                    Our SaaS offering at $100 p/m save your organisation five times the cost of a typical DIY hosting,
+                    not to count
+                    the engineering time that you get back from having to manage your own solution:
+                    <ul>
+                        <li>making updates for security</li>
+                        <li>backing up databases</li>
+                        <li>maintaining an always online system</li>
+                    </ul>
+                </h5>
+                <h5 class="description text-left">
+                    Your organisation can move faster and concentrate on your the business goals.
+                </h5>
+            </div>
+
+        </div>
+
+        <div class="section section-contacts">
+
+            <div class="row">
+
+                <!--<div class="panel-group container-fluid" id="accordion">-->
+                    <!--<h2 class="align-content-center text-center">Frequently Asked Questions</h2>-->
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapseOne">Is there a trial or free plan?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapseOne" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes.<br/>-->
+                                <!--We provide a free plan. Click here to <a href="/register">signup</a> and in plans,-->
+                                <!--select the "Free" plan.-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse3">Do you provide support?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse3" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes.<br/>-->
+
+                                <!--We provide support for everyone, paid or free via our <a href="/support">Support-->
+                                <!--Tickets</a>.<br/>-->
+                                <!--If you would like help with onboarding your teams or just discuss how you can integrate-->
+                                <!--pkhub into your-->
+                                <!--app development lifecycle <a href="mailto:admin@pkhub.io">Email Us.</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse4">What makes this different from AWS secrets manager?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse4" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--<b>Cloud independent</b><br/>-->
+                                <!--With pkhub you can access your app secrets from any cloud, GCE, AWS, Digital-->
+                                <!--Ocean...<br/>-->
+                                <!--<b>Works with and for the developer</b><br/>-->
+                                <!--Our <a href="/usecases/cli_setup">pk cli tool</a> is easy to use and fits right into the-->
+                                <!--developer's workflow. This allows your devs to run their applications with the pk cli-->
+                                <!--and they-->
+                                <!--have the credentials they require automatically injected.-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse5">What makes this different from Lastpass/1password/Dashlane?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse5" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--PKHub is a secret manager. Secrets managers are different because they store sensitive-->
+                                <!--data like server keys, database passwords and API keys.-->
+
+                                <!--Password managers store online login information. You can also store your login-->
+                                <!--information-->
+                                <!--with pkhub, and having all of your service logins and app secrets can be very-->
+                                <!--convenient.-->
+
+                                <!--Our logins and secure notes are all designed so that developers and teams can access-->
+                                <!--them-->
+                                <!--from the Web, CLI or Rest, and they are always in sync.-->
+
+                                <!--Most password managers sell a team sharing option, but they make you go through-->
+                                <!--difficult sharing processes-->
+                                <!--and passwords shared need to be re-shared to be kept in sync. In PKHub we share the-->
+                                <!--group (safe) encryption key-->
+                                <!--in a way that user's do not have the key themselves, but the key can only be decrypted-->
+                                <!--with the user's correct password.-->
+                                <!--This keeps the encrypted information secure and always in sync.-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse6">Do you use end to end encryption?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse6" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes.<br/>-->
+                                <!--We only use Http2 and our encryption is true end to end, i.e we do not even terminate at-->
+                                <!--the load balancer.-->
+                                <!--End to end encryption ensures you that your data cannot be decrypted between you and our-->
+                                <!--API application instances.-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse7">How is my data secured?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse7" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--We encrypt all secret data with <a-->
+                                    <!--href="https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/example-values">NIST</a>-->
+                                <!--compliant-->
+                                <!--<a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES+CBC+HMAC512</a>.-->
+                                <!--We do this even though its slower than AES+GCM because we believe its more secure than-->
+                                <!--AES+GCM for data at rest, due to GCMs possible risks with IV uniqueness.-->
+
+
+                                <!--Our servers run on standard boring Java virtual machines with the latest standard SunJCE-->
+                                <!--providers.-->
+                                <!--We like to keep it boring, standard and secure.-->
+
+                                <!--All our messages are encrypted and authenticated using:-->
+                                <!--<code>cipher = encrypt(unique secure random IV, message)</code>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse8">How is my password stored?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse8" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--We use <a href="https://en.wikipedia.org/wiki/Argon2">argon2id</a> to hash and store all-->
+                                <!--passwords.-->
+                                <!--We do not store the hash, before storage its encrypted. This makes offline attacks-->
+                                <!--infeasible, because a would be attacker would need to-->
+                                <!--also know how to decrypt each hash before they could attack the hash itself.-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse9">Why can't I reset my forgotten password?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse9" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--You cannot.<br/>-->
+                                <!--We do not store any information about your master password that would enable us to reset-->
+                                <!--it.-->
+                                <!--In the case of AWS for example, you can reset your password, which would mean that a-->
+                                <!--would be attacker could use-->
+                                <!--that same mechanism to get hold of a user's account and to their app secrets. To avoid-->
+                                <!--this scenario and provide-->
+                                <!--a more secure service we cannot store anything that would reset your password.-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse10">Can I use pk to access my databases from the CLI?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse10" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes you can. <br/>-->
+                                <!--Add your database type, host, port and access credentials to the "DB" section in your-->
+                                <!--"pkhub" safe. The use the <code>pk db</code> command to open a cli.<br/>-->
+
+                                <!--You can even use your favourite db cli e.g: <br/>-->
+                                <!--<code>pk db -s pkhub.io -n pk -i -p -x pgcli</code>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse11">Can I use pk to store my ssh keys?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse11" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes you can. <br/>-->
+                                <!--See our use case tutorial for <a href="/usecases/ssh_add">Manage Remote SSH/Rsync/Scp-->
+                                <!--Keys</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse12">Is there an on-premise option?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse12" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes. <br/>-->
+                                <!--Our software is available for on-premise installation and management, and newer versions-->
+                                <!--are-->
+                                <!--made available as docker images so that you can easily pull in upgrades as needed.-->
+                                <!--<p/>-->
+                                <!--To get started <a href="mailto:admin@pkhub.io">contact us</a>.-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                    <!--<div class="card w-100">-->
+                        <!--<div class="card-body">-->
+                            <!--<div class="card-title">-->
+                                <!--<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"-->
+                                   <!--href="#collapse13">I don't want to pay by card, are there other options avaiable?</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div id="collapse13" class="collapse">-->
+                            <!--<div class="card-body">-->
+                                <!--Yes. <br/>-->
+                                <!--If you would like a more traditional, contract monthly invoice setup, we can do that for-->
+                                <!--you.-->
+                                <!--<p/>-->
+                                <!--To get started <a href="mailto:admin@pkhub.io">contact us</a>.-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+                <!--</div>-->
+
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+
+
+        <section id="sec-contact" class="sec-contact pt-5 pb-5">
+
+        </section>
+
+        {% include "front/footer.html" %}
+    </div>
+
+
+    {% endblock %}
+
+    {% block page-scripts %}
+
+
+    {% endblock %}
+</div>

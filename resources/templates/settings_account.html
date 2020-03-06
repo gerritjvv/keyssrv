@@ -1,0 +1,68 @@
+{% extends "settings_base.html" %}
+{% block settings_content %}
+
+<!-- see https://github.com/wenzhixin/bootstrap-table-examples/blob/master/crud/index.html -->
+<div class="col-md-4 col-md-offset-4">
+    <div class="border border-white" style="height: 400px">
+        <form method="POST" action="">
+            {% csrf-field %}
+            <div class="form-group">
+                <label for="user-name">Username</label>
+                <input class="form-control input-sm" id="user-name" type="text" name="user-name"
+                       value="{{user.user-name}}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control input-sm" id="email" type="email" name="email" value="{{user.email}}"
+                       readonly>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control input-sm" id="password" type="password" name="password" value="****"
+                       readonly>
+            </div>
+        </form>
+        <form method="POST" action="/settings?view=account">
+            {% csrf-field %}
+            <input type="hidden" name="action" value="show"/>
+
+            <button type="submit" class="btn btn-sm btn-secondary" data-toggle="tooltip"
+                    data-placement="top" title="Update Account details">Update
+            </button>
+        </form>
+    </div>
+    <p/>
+    <p/>
+    <div class="container border border-danger rounded" style="height: 100px;">
+        <h5>Danger Area</h5>
+        <p/>
+        <div class="align-bottom">
+
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">
+                Delete Account
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block page-scripts %}
+<script src="https://js.stripe.com/v3/" type="text/javascript"></script>
+
+
+{% if show-update-modal %}
+
+<script>
+    $(window).on('load', function () {
+
+    });
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,10 @@
+FROM 349236026960.dkr.ecr.us-east-1.amazonaws.com/keyssrv-dev-base:latest
+
+## ensure we always have the latest docker and docker-compose in our container
+##COPY --from=library/docker:latest /usr/local/bin/docker /usr/bin/docker
+
+WORKDIR /app
+
+EXPOSE 3001
+
+CMD "bash"

@@ -1,0 +1,11 @@
+{
+ :email "noreply@pkhub.com"
+ :issuer "http://localhost:3001"
+
+ :database-url "jdbc:postgresql://postgresd:5432/test?user=test&password=test"
+
+ :ssl-port 3001
+ ;;should be the same for all instances
+ ;; salt must be  128bits
+ :salt "EtSme7FtyW9az/p4"
+ }

@@ -1,0 +1,53 @@
+{% extends "dashboard/base.html" %}
+
+{% block full-content %}
+<div class="content">
+
+
+    <div class="content">
+
+        {% include "front/alerts.html" %}
+
+        <div class="container-fluid">
+            {% if dbs|not-empty %}
+            <div class="row  justify-content-center">
+                <p>
+                    <button class="btn btn-info btn-lg btn-just-icon" data-toggle="modal"
+                            data-target="#createSecretModal">
+                        <i class="material-icons">add</i></button>
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="row ">
+
+                {% if dbs|not-empty %}
+
+                {% include "dashboard/dbs/show_data.html" %}
+
+                {% else %}
+
+                {% include "dashboard/dbs/show_welcome.html" %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+
+    {% if show-update-modal %}
+     <div id="showDashboardModal" data-target="updatedbModal"></div>
+    {% endif %}
+</div>
+
+{% include "dashboard/dbs/modals.html" %}
+
+{% endblock %}
+
+
+{% block page-scripts %}
+
+
+{% endblock %}
+

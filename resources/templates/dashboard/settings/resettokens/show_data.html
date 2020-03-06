@@ -1,0 +1,57 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">https</i>
+            </div>
+            <h4 class="card-title">Password Reset Tokens</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-5">
+                        The only way to reset your password when you forget it, is using one of the "reset tokens".
+                        Generate them and store them in a safe place, e.g like a another trusted user's pkhub.
+
+
+                    </div>
+                    <div class="coll pull-right">
+                        <form action="/settings?view=tokens" method="POST">
+                            {% csrf-field %}
+                            <input type="hidden" name="action" value="create"/>
+                            <button type="submit" class="btn btn-sm btn-outline-primary" >
+                                Generate Reset Tokens
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-responsive">
+                            <thead class="fixed-table-header">
+                            <tr>
+                                <th>Reset Tokens</th>
+                            </tr>
+                            </thead>
+                            <tbody class="fixed-table-body">
+                            {% for key in keys %}
+                            <tr>
+                                <td class="form-group col-md-4">
+                                    {{key}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

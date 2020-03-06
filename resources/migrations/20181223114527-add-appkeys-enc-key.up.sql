@@ -1,0 +1,1 @@
+ALTER TABLE app_keys ADD COLUMN IF NOT EXISTS enc_key bytea DEFAULT NULL;

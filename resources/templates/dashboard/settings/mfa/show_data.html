@@ -1,0 +1,118 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">https</i>
+            </div>
+            <h4 class="card-title">Multi Factor Auth</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="container">
+
+
+
+                <div class="container row">
+                    {% if not qr %}
+                    {% if mfa-enabled %}
+
+                    <input class="form-check-input" type="checkbox" name="mfa-enabled"
+                           id="mfa-enabled" value=""
+                           disabled checked>
+                    <label>MFA Active</label>
+                    {% else %}
+                    <input class="form-check-input" type="checkbox" name="mfa-disabled"
+                           id="mfa-disabled"
+                           value="" disabled>
+                    <label class="alert-danger">MFA Not Setup</label>
+                    {% endif %}
+
+                    {% endif %}
+                </div>
+
+                <div class="container row">
+                    {% if any mfa-enabled qr %}
+
+                    <div class="d-flex flex-row">
+                        <form action="/settings?view=mfa" method="POST">
+                            {% csrf-field %}
+                            <input type="hidden" name="action" value="remove"/>
+                            <button type="submit"
+                                    class="btn btn-sm {% if qr %} btn-outline-secondary {% else %} btn-outline-danger {% endif %}">
+                                Remove MFA
+                            </button>
+                        </form>
+                    </div>
+                    {% endif %}
+
+                    <div class="d-flex flex-row">
+                        <form action="/settings?view=mfa" method="POST">
+                            {% csrf-field %}
+                            <input type="hidden" name="action" value="create"/>
+                            <button type="submit"
+                                    class="btn btn-sm {% if qr %} btn-outline-secondary {% else %} btn-outline-primary {% endif %}">
+                                {% if any mfa-enabled qr %}
+                                Reset MFA
+                                {% else %}
+                                Setup MFA
+                                {% endif %}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+
+
+                <div>
+
+
+                    {% if qr %}
+
+                    <p/>
+                    <h3>
+                        Scan in the QR image (or enter the MFA code) <br/>
+                        with your MFA authenticator app.<br/>
+                        Then type in 2 consecutive codes from<br/>
+                        the authenticator app, and confirm.
+                    </h3>
+
+
+                    <figure class="figure">
+                        <img id="qr-img" src="" data-qr-src="data:image/png;base64,{{qr}}" class="figure-img img-fluid rounded"
+                             alt="QR Code for MFA, IE is not supported, please use the code below">
+                        <figcaption class="figure-caption text-center">MFA Code: {{mfa-key}}</figcaption>
+                    </figure>
+
+                    <form action="/settings?view=mfa" method="POST">
+                        {% csrf-field %}
+                        <input type="hidden" name="action" value="confirm"/>
+                        <input type="hidden" name="mfa-key" value="{{mfa-key}}"/>
+
+                        <div class="form-row input-group-sm">
+                            <div class="col-2">
+                                <input type="text" name="code1" class="form-control"
+                                       placeholder="Code 1" maxlength="6" minlength="6" required>
+                            </div>
+                            <div class="col-2">
+                                <input type="text" name="code2" class="form-control"
+                                       placeholder="Code 2" maxlength="6" minlength="6" required>
+                            </div>
+                        </div>
+                        <p/>
+                        <div class="">
+                            <button type="submit" class="btn btn-sm btn-outline-primary">
+                                Confirm
+                            </button>
+                        </div>
+                    </form>
+
+                    {% endif %}
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

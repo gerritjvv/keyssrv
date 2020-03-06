@@ -1,0 +1,54 @@
+{% extends "dashboard/base.html" %}
+
+{% block full-content %}
+<div class="content">
+
+
+    <div class="content">
+
+        {% include "front/alerts.html" %}
+
+        <div class="container-fluid">
+            {% if app-keys|not-empty %}
+            <div class="row  justify-content-center">
+                <p>
+                    <button class="btn btn-info btn-lg btn-just-icon" data-toggle="modal" data-target="#createappKeyModal">
+                        <i class="material-icons">add</i> </button>
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="row ">
+
+                {% if app-keys|not-empty %}
+
+                {% include "dashboard/appkeys/show_data.html" %}
+
+                {% else %}
+
+                {% include "dashboard/appkeys/show_welcome.html" %}
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% include "dashboard/appkeys/modals.html" %}
+
+
+{% endblock %}
+
+
+
+
+
+{% block page-scripts %}
+
+{% if show-update-modal %}
+<div id="showDashboardModal" data-target="updatecertModal"></div>
+{% endif %}
+
+{% endblock %}

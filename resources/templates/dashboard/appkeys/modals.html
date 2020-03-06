@@ -1,0 +1,40 @@
+
+<!-- Modal Create -->
+<div class="modal fade" id="createappKeyModal" tabindex="-1" role="dialog"
+     aria-labelledby="createappKeyModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="max-width: 100%; min-width: 50%">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createappKeyModalTitle">Create App Key</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" action="/pass/appkeys">
+                <div class="modal-body">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="create"/>
+                    <div class="form-group">
+                        <label for="expire-date">Expire date time</label>
+                        <input class="form-control input-sm" name="dateexpire" type="datetime-local"
+                               id="expire-date"
+                               value="{{ default-expire-date-time }}"
+                               autofocus
+                               required>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-info">Create</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

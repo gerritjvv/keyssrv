@@ -1,0 +1,70 @@
+##################### https://github.com/Quantisan/docker-clojure/blob/9ed339a714c220988375884eb6743c221b02beb5/target/openjdk-8/debian/lein/Dockerfile
+#### Changes are to use openjdk12 oracle linux
+FROM openjdk:13
+
+ENV LEIN_VERSION=2.8.3
+ENV LEIN_INSTALL=/usr/local/bin/
+
+WORKDIR /tmp
+
+
+ENV PATH=$PATH:$LEIN_INSTALL
+ENV LEIN_ROOT 1
+
+RUN yum -y update && \
+    yum install -y wget && \
+    wget http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    rpm -ivh epel-release-latest-7.noarch.rpm && \
+    yum install -y wget bash jq git apt-transport-https groff curl less python openssl python-pip python-dev build-essential vim ca-certificates software-properties-common
+
+# Download the whole repo as an archive
+RUN mkdir -p $LEIN_INSTALL \
+  && wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein | sh \
+  && mv lein /usr/local/bin/ \
+  && chmod +x /usr/local/bin/lein \
+  && echo '(defproject dummy "" :dependencies [[org.clojure/clojure "1.10.0"]])' > project.clj \
+  && lein deps && rm project.clj
+
+###### -------- pkhub specific ###########
+
+RUN   mkdir -p /aws && \
+	  curl https://bootstrap.pypa.io/get-pip.py | python && \
+	  pip install awscli && \
+      mkdir -p /usr/local/share/ca-certificates && \
+      mkdir -p /app/libs && \
+      curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose && \
+      chmod +x /usr/local/bin/docker-compose
+
+# use drip for faster repl runs https://github.com/ninjudd/drip
+RUN yum install -y gcc && \
+    curl -L https://raw.githubusercontent.com/ninjudd/drip/master/bin/drip > /usr/bin/drip && \
+    chmod 755 /usr/bin/drip && \
+    /usr/bin/drip
+
+COPY cli/pk/goinstall.sh /tmp/goinstall.sh
+RUN chmod +x /tmp/goinstall.sh
+RUN bash /tmp/goinstall.sh --64
+
+## install container
+RUN cd /etc/yum.repos.d/ && \
+    wget http://yum.oracle.com/public-yum-ol7.repo && \
+    sed -i 's;enabled=0;enabled=1;g' * && \
+    yum install -y docker-engine
+
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.13.0/bin/linux/amd64/kubectl && \
+    chmod +x ./kubectl && \
+    mv ./kubectl /usr/local/bin/kubectl
+
+RUN yum install -y argon2 && \
+    curl -OL https://github.com/digitalocean/doctl/releases/download/v1.0.0/doctl-1.20.1-linux-amd64.tar.gz && \
+    tar xf doctl-1.20.1-linux-amd64.tar.gz && \
+    mv ./doctl /usr/local/bin && \
+    chmod +x /usr/local/bin/doctl
+
+WORKDIR /app
+
+EXPOSE 3001
+
+CMD ["lein", "repl"]
+
+CMD "bash"

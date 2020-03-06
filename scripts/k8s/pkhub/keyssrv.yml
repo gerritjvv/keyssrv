@@ -1,0 +1,197 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keyssrv
+  namespace: pkhub
+  labels:
+    app: keyssrv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keyssrv
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: "enabled"
+      labels:
+        app: keyssrv
+    spec:
+      containers:
+      - name: keyssrv
+        image: 349236026960.dkr.ecr.us-east-1.amazonaws.com/keyssrv-prod:stage
+        ports:
+        - containerPort: 3001
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: "/"
+            port: 3001
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10
+#        livenessProbe:
+#          httpGet:
+#            path: "/"
+#            port: 3001
+#            scheme: HTTPS
+#          initialDelaySeconds: 15
+#          periodSeconds: 20
+        resources:
+          limits:
+            memory: "2028Mi"
+          requests:
+            memory: "512Mi"
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: keyssrv
+              key: PROD_DATABASE_URL
+        - name: SALT
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_SALT
+        - name: TOKEN_STORE__SENTINEL
+          value: "true"
+        - name: TOKEN_STORE__MASTER_NAME
+          value: "mymaster"
+        - name: TOKEN_STORE__SECRET
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_TOKEN_STORE__SECRET
+        - name: TOKEN_STORE__TYPE
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_TOKEN_STORE__TYPE
+        - name: TOKEN_STORE__HOSTS
+          value: "10.245.131.94:26379"
+        - name: SESSION_STORE__TTL_SECONDS
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_SESSION_STORE__TTL_SECONDS
+        - name: SUPPORT_TICKET_EMAIL
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SUPPORT_TICKET_EMAIL
+        - name: STRIPE_SK
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_STRIPE_SK
+        - name: STRIPE_PK
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_STRIPE_PK
+        - name: SMTP__HOST
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SMTP__HOST
+        - name: SMTP__SSL
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SMTP__SSL
+        - name: SMTP__PASSWORD
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SMTP__PASSWORD
+        - name: SMTP__USER
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SMTP__USER
+        - name: SMTP__PORT
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SMTP__PORT
+        - name: ISSUER
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_ISSUER
+        - name: SYSTEM_KEY
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_SYSTEM_KEY
+        - name: EMAIL
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: EMAIL
+        - name: SSL_PORT
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: SSL_PORT
+        - name: ENV
+          value: prod
+#        - name: JVM_OPTS
+#          value: "-Xmx2048m"
+        - name: KEYSTORE_PWD
+          valueFrom:
+            secretKeyRef:
+              name: keyssrv
+              key: KS_PASSWORD
+        - name: CAPTCHA_KEY
+          valueFrom:
+            secretKeyRef:
+              name: keyssrv
+              key: CAPTCHA_KEY
+        - name: CAPTCHA_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: keyssrv
+              key: CAPTCHA_SECRET
+      imagePullSecrets:
+      - name: us-east-1-ecr-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keyssrv
+  namespace: pkhub
+spec:
+  selector:
+    app: keyssrv
+  ports:
+  - protocol: TCP
+    port: 3001
+    targetPort: 3001
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: keyssrv
+  namespace: pkhub
+  annotations:
+    nginx.ingress.kubernetes.io/limit-connections: "500"
+    nginx.ingress.kubernetes.io/limit-rps: "200"
+    nginx.ingress.kubernetes.io/load-balance: "ewma"
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: "pkhub.io"
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: keyssrv
+          servicePort: 3001
+  - host: "*.pkhub.io"
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: keyssrv
+          servicePort: 3001

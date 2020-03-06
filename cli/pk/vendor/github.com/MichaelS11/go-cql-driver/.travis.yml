@@ -1,0 +1,23 @@
+sudo: required
+
+services:
+  - cassandra
+
+language: go
+go:
+  - 1.9.x
+  - 1.10.x
+  - 1.11.x
+install: true
+
+before_script:
+  - go get github.com/gocql/gocql
+
+script:
+  - go test -v -coverprofile=coverage.txt -covermode=count
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email: false

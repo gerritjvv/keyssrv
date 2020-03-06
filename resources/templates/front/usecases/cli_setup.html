@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+
+{% endblock %}
+
+{% block full-content %}
+
+
+<div class="page-header header-filter header-small" data-parallax="true"
+     style="background-image: url('../img/front/banner3_ext_1.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="title">Getting started with the PK CLI</h1>
+                <h4>
+
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main main-raised">
+    <div class="container">
+
+        <div class="section section-text">
+            <div class="row col-md-8 ml-auto mr-auto  rounded">
+                <iframe src="https://player.vimeo.com/video/339297891" width="640" height="480" frameborder="0"
+                        class="embed-responsive embed-responsive-16by9"
+                        allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto">
+                    <h3 class="title">Overview</h3>
+
+                    In this tutorial we'll cover how to setup and configure the "pk" command line tool, for both interactive
+                    and non interactive use. With the pk cli you can:<br/>
+                    <ul class="list-group">
+                        <li class="list-group-item">Run commands and programs (even a bash shell) with pre-configured environments.</li>
+                        <li class="list-group-item">Combine several environments to pull in the environment variables you want.</li>
+
+                        <li class="list-group-item">Get secrets, notes and software keys.</li>
+                        <li class="list-group-item">Connect to databases from a universal sql command line (or use your favourite db tool).</li>
+                    </ul>
+
+                    <p/>
+                    <p></p>
+                    The pk cli can be configured in three ways:<br/>
+
+                    <ol class="list-group">
+                        <li class="list-group-item">1. Using a config file</li>
+                        <li class="list-group-item">2. Via environment variables</li>
+                        <li class="list-group-item">3. Interactively typing your username and password</li>
+                    </ol>
+
+                    <p/>
+
+
+                    <h3 class="title">Requirements</h3>
+
+                    We assume you already have an account setup with <a href="/pricing">PKHub</a>.<br/>
+
+                    <p></p>
+
+                    The rest of the tutorial assumes you have acccess to a command line terminal, and all
+                    commands when run will be executed in the command line terminal.
+
+                    <h3 class="title">Installation</h3>
+
+                        To install run the following command:
+
+                    <div class="blockquote">
+<pre>
+curl https://docs.pkhub.io/install/install.sh | sh
+</pre>
+                    </div>
+
+
+                    <h3 class="title">Config</h3>
+
+                    <h4><b>Interactive user name and password</b></h4>
+                    <p></p>
+                    Using the "-p" flag in the "pk" command, will ask you for your user name and password<br/>
+                    This is an easy way to login and use the pk command.
+                    <p/>
+
+                    <div class="blockquote">
+<pre>
+pk sh -p -s [your-safe] -n [any-env] -i -- bash
+</pre>
+                    </div>
+                    <p></p>
+
+                    <h4><b>Configuration via Environment Variables</b></h4>
+                    <p></p>
+                    You can create and manage API keys in the pkbhub account section. Which is made visible by clicking
+                    on your login name.
+                    <p></p>
+                    Set the keys in your "~/.bashrc" or "~/.zshrc" files.
+
+                    <div class="blockquote">
+<pre>
+
+export PK_KEY_ID=[PK KEY ID]
+export PK_KEY_SECRET=[PK KEY SECRET]
+
+</pre>
+                    </div>
+                    <p/>
+
+
+                    <h4><b>Configuration via config file</b></h4>
+                    <p></p>
+                    You can also store your pk API keys in a config file if you whish (although environment variables is the preferred way).
+
+                    Use the file: "~/.pk.yaml"
+
+                    <div class="blockquote">
+<pre>
+#~/.pk.yaml
+PK_KEY_ID: [PK KEY ID]
+PK_KEY_SECRET: [PK KEY SECRET]
+</pre>
+                    </div>
+                    <p/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="wrapper">
+
+    <section id="sec-contact" class="sec-contact pt-5 pb-5">
+
+    </section>
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+
+{% endblock %}
+
+{% block page-scripts %}
+
+
+{% endblock %}

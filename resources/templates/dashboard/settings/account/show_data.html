@@ -1,0 +1,76 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+                <i class="material-icons">settings</i>
+            </div>
+            <h4 class="card-title">Account Settings</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card ">
+                        <div class="card-header card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">person</i>
+                            </div>
+                            <h4 class="card-title">Account Information</h4>
+                        </div>
+                        <div class="card-body ">
+                            <form method="#" action="#">
+
+                                <div class="form-group">
+                                    <label for="user-name" class="bmd-label-floating">User Name</label>
+                                    <input type="text" class="form-control" id="user-name" value="{{user.user-name}}" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="bmd-label-floating">Email</label>
+                                    <input type="email" class="form-control" id="email"  value="{{user.email}}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="bmd-label-floating">Password</label>
+                                    <input type="password" class="form-control" id="password" value="****" readonly>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="card-footer align-content-center">
+                            <div class="flex-row mx-auto">
+                                <form class="form-horizontal" method="POST" action="/settings?view=account">
+                                    {% csrf-field %}
+
+                                    <input type="hidden" name="action" value="show"/>
+
+                                    <div class="row text-center">
+                                        <button type="submit" class="btn btn-lg btn-danger" data-toggle="tooltip"
+                                                data-placement="top" title="Update Account details">Update
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <p/>
+            <p/>
+            <div class="container border border-danger rounded col-md-4 pull-left" style="height: 100px;">
+                <h5>Danger Area</h5>
+                <p/>
+                <div class="align-bottom">
+
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteAccountModal">
+                        Delete Account
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

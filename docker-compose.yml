@@ -1,0 +1,69 @@
+version: '3.2'
+
+services:
+
+  keyssrv-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+      cache_from:
+      - "349236026960.dkr.ecr.us-east-1.amazonaws.com/keyssrv-dev:latest"
+    privileged: true
+    volumes:
+    - nfsmount:/app
+    - .data/certs:/usr/local/share/ca-certificates
+    - .data:/var/data
+    - ~/.m2:/root/.m2/:cached
+    # we need to mount in the docker sock to run docker images for tests reliably from dockerd
+    - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      LEIN_JAVA_CMD: "/usr/bin/drip"
+      AWS_REGION: "eu-west-1"
+    env_file:
+    - ./.env
+    - ./.env-prod
+    depends_on:
+    - postgresd
+    - mysql
+    links:
+    - postgresd:postgresd
+    - postgresd:postgres
+    - mysql:mysql
+    - redis:redis
+    ports:
+    - "3000:3000"
+    - "3001:3001"
+
+  mysql:
+    image: mysql
+    ports:
+    - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: keyssrv
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+    volumes:
+      - ./env/dev/resources/mysql:/etc/mysql/conf.d
+  postgresd:
+    image: postgres:9.6
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: keyssrv
+
+  redis:
+    image: redis:alpine
+    ports:
+    - "6379:6379"
+
+volumes:
+  postgresvolume4:
+  nfsmount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=host.docker.internal,rw,nolock,hard,nointr,nfsvers=3
+      device: ":${SOURCE_DIR}"

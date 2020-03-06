@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block page-headers %}
+
+{% endblock %}
+
+{% block full-content %}
+
+
+<div class="page-header header-filter page-img" data-parallax="false">
+    <div class="container">
+    </div>
+</div>
+
+<div class="main main-raised h-100">
+    <div class="container">
+
+        {% include "front/alerts.html" %}
+
+        <div class="row justify-content-center text-center m-3 pb-3">
+            <h2>Secure Send</h2>
+
+        </div>
+        <div class="row col-sm-12">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8 ">
+                <h4>Send secrets to others securely (and for free).</h4>
+
+                <p class="title-info">
+                <ul>
+                    <li>
+                        We will encrypt your message using AES_GCM, and return a link that contains the decryption id and key.
+                    </li>
+                    <li>
+                        You can then send this link to the person you want to share the secret data with.
+                    </li>
+                </ul>
+
+
+                <hr/>
+                <form class="form mt-4" method="POST" action="" autocomplete="off">
+                    {% csrf-field %}
+
+                    <input type="hidden" name="action" value="encrypt">
+
+                    <div class="form-group form-inline">
+                        <label for="secret">Message</label>
+                        <input id="secret"
+                               maxlength="500"
+                               name="secret" class="form-control input-lg w-100" autocomplete="off" required>
+                        <small id="secretHelp" class="form-text text-muted">The message here will be encrypted (max 500 chars)</small>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="">
+                            <input class="checkbox" type="checkbox" id="dread" name="dread" value="true">
+                            <label for="dread">Delete on read</label>
+                        </div>
+                        <div class="">
+                            <label class="label" for="expire">Expire in:</label>
+                            <select class="form-control selectpicker" data-live-search="false" id="expire"
+                                    name="expire">
+                                <option value="5">5 min</option>
+                                <option value="10">10 min</option>
+                                <option value="15" selected="selected">15 min</option>
+                                <option value="20">20 min</option>
+                                <option value="30">30 min</option>
+                                <option value="60">1 hr</option>
+                            </select>
+                        </div>
+                        <p/>
+                        <div class="mt-3">
+                            <label for="code">(Optional)Pass Code</label>
+                            <input class="form-control" type="text" id="code" name="code" maxlength="100" autocomplete="off">
+                            <small id="codeHelp" class="form-text text-muted">If specified, the receiver will need to provide this code.</small>
+
+                        </div>
+                    </div>
+
+                    <div>
+                        <input class="btn btn-info btn-lg" type="submit" value="Encrypt & Send">
+                    </div>
+                </form>
+                <hr/>
+
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+        <div class="row">
+
+            <div class="panel-group container-fluid" id="accordion">
+                <h3 class="faqHeader">FAQ</h3>
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapse3">Do you offer a more comprehensive solution to secret management?</a>
+                        </div>
+                    </div>
+                    <div id="collapse3" class="collapse show">
+                        <div class="card-body">
+                            Yes.<br/>
+
+                            We provide a Secrets Management Platform that contains secret management, password management and developer
+                            productivity tools to access and use secrets for accessing IT systems like servers, databases, either from their CLI
+                            or from their applications.<br/>
+                            Checkout our home page at <a href="/">https://pkhub.io</a> or <a href="/contact">contact us.</a>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <a class="accordion-toggle" data-toggle="collapse show" data-parent="#accordion"
+                               href="#collapseOne">How is my data encrypted?</a>
+                        </div>
+                    </div>
+                    <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                            Your data is sent using HTTP2 end to end encryption. No proxies or load balancers will terminate the encryption.
+                            <ul>
+                                <li>Our servers will then generate a unique id and a secure random key. </li>
+                                <li>This is used to encrypt your message using <a href="https://tools.ietf.org/html/draft-ietf-avt-srtp-aes-gcm-01" target="_blank">AES-GCM.</a> with a unique secure random IV everytime.</li>
+                                <li>Your encrypted message is stored in one of our memory stores and we return a link with the encryption key and id.</li>
+                                <li>Data is never stored to disk, and we never store the encryption key.</li>
+                                <li>The data is expired after the expire time you selected.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card w-100">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <a class="accordion-toggle" data-toggle="collapse show" data-parent="#accordion"
+                               href="#collapse2">Why is this a free service?</a>
+                        </div>
+                    </div>
+                    <div id="collapse2" class="collapse show">
+                        <div class="card-body">
+                            Part of our mission is making security easy and accessible for people, especially developers.
+                            We believe that by making this service free of charge we can lower any barriers that keep people from
+                            sharing data securely.
+                            <p/>
+                            We hope you find the service useful. <br/>
+                            For any comments or suggestions please <a href="/contact">contact us.</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        {% if show-link %}
+        <div id="ss-show-link" data-link="{{ show-link.link | safe }}"></div>
+        {% endif %}
+
+        {% if show-msg %}
+        <div id="ss-show-msg" data-msg="{{ show-msg }}"></div>
+        {% endif %}
+
+
+        {% if need-code %}
+        <div id="ss-need-code"></div>
+        {% endif %}
+
+    </div>
+    <div class="contact-content">
+
+        {% include "front/alerts.html" %}
+
+    </div>
+</div>
+
+<div class="wrapper">
+
+
+    {% include "front/footer.html" %}
+
+</div>
+
+{% include "securesend/modals.html" %}
+
+
+
+{% endblock %}
+
+{% block page-scripts %}
+
+
+{% endblock %}
