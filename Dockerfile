@@ -19,6 +19,10 @@ COPY entry-point.sh /keyssrv/entry-point.sh
 COPY target/keyssrv.jar /keyssrv/keyssrv.jar
 COPY target/lib /keyssrv/lib/
 
+##  ensures that the argon lib is on the /usr/lib/ path for JNA
+RUN jar -xf ./lib/jargon2-native-ri-binaries-generic-1.1.1.jar ./linux-x86-64/libargon2.so && \
+    cp linux-x86-64/libargon2.so  /usr/lib/
+
 ## ensure that we do not ship test certificates
 #RUN rm -rf ~/.data && \
 #    find ~/ -iname "*.pem" -exec rm -rf {} \; && \

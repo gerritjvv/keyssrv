@@ -24,7 +24,7 @@
             [clj-uuid]
             [clojure.tools.logging :refer [info]]
             [clojure.tools.logging :as log])
-  (:import (redis.clients.jedis JedisPool JedisSentinelPool Jedis)
+  (:import (redis.clients.jedis JedisPool JedisSentinelPool Jedis JedisPoolConfig)
            (org.apache.commons.lang3 StringUtils)
            (org.apache.commons.pool2.impl GenericObjectPoolConfig)
            (redis.clients.jedis.util Pool)))
@@ -134,7 +134,12 @@
   (let [[host port] (parse-host-port (first hosts))]
     (JedisPool.
       (doto
-        (GenericObjectPoolConfig.)
+        (JedisPoolConfig.)
+        (.setTestOnBorrow true)
+        (.setTestOnReturn true)
+        (.setTestWhileIdle true)
+        (.setMinIdle (int 1))
+        (.setMaxIdle (int 5))
         (.setMaxTotal (int 100)))
       (str host) (int port)
       (int 2000)

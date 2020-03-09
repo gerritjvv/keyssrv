@@ -42,9 +42,7 @@ AWS_CMD=$(command -v aws)
 
 echo "AWS cli command " $(command -v aws)
 
-REGION=${AWS_DEFAULT_REGION:-us-east-1}
-
-eval $($AWS_CMD ecr get-login --no-include-email --region us-east-1 || $AWS_CMD ecr get-login --region us-east-1)
+eval $($AWS_CMD ecr get-login --no-include-email --region eu-west-1 || $AWS_CMD ecr get-login --region eu-west-1)
 
 set -e
 
@@ -261,11 +259,11 @@ ecr_login
 BUILD_ID=`git rev-parse --short HEAD`
 
 (cd $DIR && \
-     docker build -t keyssrv-prod . && \
-     docker tag keyssrv-prod:latest $DOCKER_REGISTRY_URL/keyssrv-prod:$BUILD_ID && \
-     docker push $DOCKER_REGISTRY_URL/keyssrv-prod:$BUILD_ID && \
-     docker tag keyssrv-prod:latest $DOCKER_REGISTRY_URL/keyssrv-prod:stage && \
-     docker push $DOCKER_REGISTRY_URL/keyssrv-prod:stage)
+     docker build -t keyssrv . && \
+     docker tag keyssrv-prod:latest $DOCKER_REGISTRY_URL/keyssrv:$BUILD_ID && \
+     docker push $DOCKER_REGISTRY_URL/keyssrv:$BUILD_ID && \
+     docker tag keyssrv:latest $DOCKER_REGISTRY_URL/keyssrv:stage && \
+     docker push $DOCKER_REGISTRY_URL/keyssrv:stage)
 
 }
 

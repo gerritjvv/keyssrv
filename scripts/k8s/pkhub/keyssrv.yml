@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: keyssrv
-        image: 349236026960.dkr.ecr.us-east-1.amazonaws.com/keyssrv-prod:stage
+        image: 351415477200.dkr.ecr.eu-west-1.amazonaws.com/keyssrv:stage
         ports:
         - containerPort: 3001
         imagePullPolicy: Always
@@ -53,10 +53,6 @@ spec:
               secretKeyRef:
                 name: keyssrv
                 key: PROD_SALT
-        - name: TOKEN_STORE__SENTINEL
-          value: "true"
-        - name: TOKEN_STORE__MASTER_NAME
-          value: "mymaster"
         - name: TOKEN_STORE__SECRET
           valueFrom:
               secretKeyRef:
@@ -68,7 +64,10 @@ spec:
                 name: keyssrv
                 key: PROD_TOKEN_STORE__TYPE
         - name: TOKEN_STORE__HOSTS
-          value: "10.245.131.94:26379"
+          valueFrom:
+              secretKeyRef:
+                name: keyssrv
+                key: PROD_TOKEN_STORE__HOSTS
         - name: SESSION_STORE__TTL_SECONDS
           valueFrom:
               secretKeyRef:
@@ -153,8 +152,6 @@ spec:
             secretKeyRef:
               name: keyssrv
               key: CAPTCHA_SECRET
-      imagePullSecrets:
-      - name: us-east-1-ecr-registry
 ---
 apiVersion: v1
 kind: Service
