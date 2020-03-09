@@ -1,4 +1,4 @@
-# mykeys
+# keyssrv
 
 This is a secrets manager like [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) but different.
 
