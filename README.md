@@ -2,13 +2,16 @@
 
 This is a secrets manager like [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) but different.
 
-I'm hosting it at https://pkhub.io
+I'm hosting it at https://pkhub.io for my own use.
+
+
+For docs on how it works check out https://docs.pkhub.io/usecases/cli_setup/
 
 ## Encryption and keys
 
-When you register as a user a encryption key is created, which is encrypted with your password.   
-Each safe you create has its own encryption key i.e 1 encryption key per safe. The safe's encryption key
-is then encryption with your own encryption key.
+When you register as a user an encryption key is created, which is encrypted with your password.   
+Each safe you create has its own encryption key i.e one encryption key per safe. The safe's encryption key
+is then encrypted with your own encryption key.
 
 So to read the content of a safe you need:  
 
@@ -24,7 +27,7 @@ plain-text = decrypt( encrypted-data, safe-encryption-key)
 ## Sharing safes
 
 When you share a safe you share the encryption key of the safe with a user. The encryption key is encrypted
-with the user you share it with's encryption key.
+with the user's encrypted key you share it with.
 
 
 For example:
@@ -50,6 +53,7 @@ userB-safeA.encrypted-key = encrypt( safeA-encryption-key, userB-encryption-key)
 # Hosted service
 
 I host this on AWS and behind a [CloudFlare Proxy](https://support.cloudflare.com/hc/en-us/articles/205177068-How-does-Cloudflare-work-). CloudFlare's proxy provides extra security and automatically protects against certain online attacks. This was also the only service I found I could trust and that supports DNSSec. 
+
 
 # License
 
